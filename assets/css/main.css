@@ -2299,8 +2299,8 @@ input, select, textarea {
 			display: inline-block;
 			margin: 0;
 			height: 21px;
-			border-left: solid 1px #EA7814;
-			border-right: solid 1px #EA7814;
+			border-left: solid 1px #D76B07;
+			border-right: solid 1px #D76B07;
 		}
 
 			#nav > ul:before, #nav > ul:after {
@@ -2311,8 +2311,8 @@ input, select, textarea {
 				top: 50%;
 				margin-top: -2px;
 				height: 5px;
-				border-top: solid 1px #EA7814;
-				border-bottom: solid 1px #EA7814;
+				border-top: solid 1px #D76B07;
+				border-bottom: solid 1px #D76B07;
 			}
 
 			#nav > ul:before {
@@ -2343,7 +2343,7 @@ input, select, textarea {
 
 				#nav > ul > li > a, #nav > ul > li > span {
 					display: block;
-					color: #EA7814;
+					color: #D76B07;
 					text-decoration: none;
 					border: 0;
 					outline: 0;
