@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Illustration — Megan A. Davies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abyss:    #060d17;
+      --midnight: #0b1824;
+      --navy:     #112236;
+      --deep:     #1a3a5c;
+      --ocean:    #1e6a8e;
+      --wave:     #3a9cbf;
+      --mist:     #7ac2d9;
+      --ice:      #c8e8f2;
+      --fog:      #e4f2f7;
+      --mid:      #8a9aaa;
+      --light:    #5a6a7a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--abyss); color: var(--fog); overflow-x: hidden; }
+ 
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; height: 72px; background: rgba(6,13,23,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(58,156,191,0.1); transition: box-shadow 0.3s; }
+    nav.scrolled { box-shadow: 0 2px 32px rgba(0,0,0,0.5); }
+    .nav-logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; }
+    .nav-logo span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 500; color: var(--fog); letter-spacing: 0.03em; }
+    .nav-logo span:last-child { font-size: 0.66rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); text-decoration: none; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--wave); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--fog); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--mist); }
+    .nav-links a.active::after { width: 100%; background: var(--mist); }
+    .nav-cta { background: transparent !important; color: var(--mist) !important; border: 1px solid rgba(122,194,217,0.4) !important; padding: 0.45rem 1.2rem !important; border-radius: 2px !important; }
+    .nav-cta:hover { background: rgba(122,194,217,0.1) !important; border-color: var(--mist) !important; color: var(--fog) !important; }
+    .nav-cta::after { display: none !important; }
+ 
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--wave); margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::before { content: ''; width: 26px; height: 1px; background: var(--wave); }
+ 
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 160px 0 80px;
+      background: var(--abyss);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: rgba(58,156,191,0.1); }
+    .header-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 75% 50%, rgba(30,106,142,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 300; line-height: 1.08; color: var(--fog); margin-bottom: 1.6rem; position: relative; z-index: 1; }
+    .page-title em { font-style: italic; color: var(--mist); }
+    .page-intro { font-size: 1.12rem; font-weight: 300; line-height: 1.95; color: var(--mid); max-width: 660px; position: relative; z-index: 1; }
+ 
+    /* ── GALLERY ── */
+    .gallery-section {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+      padding: 7rem 0;
+    }
+ 
+    /* Full-width feature piece */
+    .gallery-feature {
+      position: relative;
+      overflow: hidden;
+      margin-top: 3.5rem;
+      background: var(--navy);
+    }
+    .gallery-feature img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      background: #1a2d44;
+      display: block;
+      filter: brightness(0.95);
+      transition: filter 0.4s;
+    }
+    .gallery-feature:hover img { filter: brightness(1.02); }
+    .gallery-feature-caption {
+      padding: 1.2rem 1.6rem;
+      background: rgba(11,24,36,0.95);
+      border-top: 1px solid rgba(58,156,191,0.1);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .gallery-feature-caption h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--fog);
+    }
+    .gallery-feature-caption p {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--light);
+      text-align: right;
+      flex-shrink: 0;
+    }
+ 
+    /* Two-column grid */
+    .gallery-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 3px;
+    }
+ 
+    /* Illustration blocks — full width, natural proportions */
+    .illus-block {
+      margin-top: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .illus-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .illus-caption {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.8rem 0 1.5rem;
+      border-bottom: 1px solid rgba(58,156,191,0.08);
+      gap: 2rem;
+    }
+    .illus-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--fog);
+    }
+    .illus-meta {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--light);
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+    .illus-light { background: #f4f2ee; padding: 2.5rem 2rem 0; }
+    .illus-light .illus-caption { border-color: rgba(0,0,0,0.08); padding: 0.8rem 2rem 1.5rem; }
+    .illus-light .illus-title { color: #2a2a2a; }
+    .illus-light .illus-meta { color: #7a7a7a; }
+    .illus-dark { background: #0d2035; }
+    .illus-warm { background: #f0ebe2; padding: 2rem 2rem 0; }
+    .illus-warm .illus-caption { border-color: rgba(0,0,0,0.08); padding: 0.8rem 2rem 1.5rem; }
+    .illus-warm .illus-title { color: #2a2a2a; }
+    .illus-warm .illus-meta { color: #7a7a7a; }
+    .illus-pale { background: #eceef2; padding: 2rem 2rem 0; }
+    .illus-pale .illus-caption { border-color: rgba(0,0,0,0.08); padding: 0.8rem 2rem 1.5rem; }
+    .illus-pale .illus-title { color: #2a2a2a; }
+    .illus-pale .illus-meta { color: #7a7a7a; }
+ 
+    /* Three-column grid */
+    .gallery-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 3px;
+    }
+ 
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+      min-height: 220px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      filter: brightness(0.92);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .gallery-item:hover img {
+      filter: brightness(1.02);
+      transform: scale(1.02);
+    }
+    .gallery-item-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.2rem 1rem;
+      background: linear-gradient(to top, rgba(6,13,23,0.92) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-caption { opacity: 1; }
+    .gallery-item-caption h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--fog);
+      margin-bottom: 0.2rem;
+    }
+    .gallery-item-caption p {
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--mist);
+      letter-spacing: 0.06em;
+    }
+ 
+    /* Section divider label */
+    .gallery-section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--light);
+      padding: 1.2rem 0 0.6rem;
+      border-top: 1px solid rgba(58,156,191,0.08);
+      margin-top: 4rem;
+    }
+    .gallery-section-label:first-of-type { margin-top: 0; border-top: none; }
+ 
+    /* ── COMMISSIONED (under wraps) ── */
+    .commissioned-section {
+      padding: 7rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .commissioned-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .commissioned-card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(58,156,191,0.03);
+      border: 1px solid rgba(58,156,191,0.1);
+      padding: 2.8rem;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .commissioned-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(58,156,191,0.015) 8px, rgba(58,156,191,0.015) 9px);
+      pointer-events: none;
+    }
+    .lock-icon {
+      position: absolute;
+      top: 1.8rem; right: 1.8rem;
+      color: var(--light);
+      opacity: 0.35;
+    }
+    .lock-icon svg { width: 16px; height: 16px; }
+    .commissioned-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.7rem;
+    }
+    .commissioned-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--fog);
+      line-height: 1.3;
+      margin-bottom: 0.7rem;
+    }
+    .commissioned-card p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid);
+    }
+ 
+    /* ── COMMISSION CTA ── */
+    .commission-section {
+      padding: 7rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .commission-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+    .commission-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.15;
+      margin-bottom: 1.4rem;
+    }
+    .commission-text h2 em { font-style: italic; color: var(--mist); }
+    .commission-text p { font-size: 1rem; font-weight: 300; line-height: 1.95; color: var(--mid); margin-bottom: 1.2rem; }
+    .btn-primary { background: var(--wave); color: var(--abyss); padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; display: inline-block; margin-top: 0.5rem; }
+    .btn-primary:hover { background: var(--mist); transform: translateY(-1px); }
+    .commission-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5px;
+      background: rgba(58,156,191,0.07);
+    }
+    .commission-row { background: var(--midnight); padding: 1.2rem 1.6rem; display: flex; gap: 1.5rem; transition: background 0.2s; }
+    .commission-row:hover { background: var(--navy); }
+    .commission-row-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wave); min-width: 100px; flex-shrink: 0; padding-top: 2px; }
+    .commission-row-val { font-size: 0.9rem; font-weight: 300; color: var(--ice); line-height: 1.6; }
+ 
+    /* ── FOOTER ── */
+    footer { background: var(--midnight); border-top: 1px solid rgba(58,156,191,0.08); padding: 1.8rem 0; text-align: center; }
+    footer p { font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; color: var(--light); opacity: 0.6; }
+ 
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .gallery-grid-2, .gallery-grid-3 { grid-template-columns: 1fr; }
+      .commissioned-grid { grid-template-columns: 1fr; }
+      .commission-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span>Megan A. Davies</span>
+    <span>Marine Biologist &amp; Science Communicator</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="expeditions.html">Expeditions</a></li>
+    <li><a href="teaching.html">Teaching &amp; Outreach</a></li>
+    <li><a href="illustration.html" class="active">Illustration</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+ 
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-bg"></div>
+  <div class="container">
+    <div class="section-label reveal">Illustration</div>
+    <h1 class="page-title reveal">
+      Science you can<br>
+      <em>see.</em>
+    </h1>
+    <p class="page-intro reveal">
+      I illustrate because science communicates better when it has a visual language. My work spans scientific figures and diagrams, natural history illustration, and science communication — drawn from the natural world, and informed by the research behind it. Commissioned work is currently in progress and not yet public.
+    </p>
+  </div>
+</div>
+ 
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="container">
+    <div class="section-label reveal">Selected work</div>
+ 
+    <!-- SCIENCE COMMUNICATION -->
+    <div class="gallery-section-label reveal">Science communication &amp; diagrams</div>
+ 
+    <!-- MPA — full width, natural proportions -->
+    <div class="illus-block reveal">
+      <img src="images/MPA.jpg" alt="Marine Protected Area — science communication illustration" onerror="this.style.display='none'">
+      <div class="illus-caption">
+        <span class="illus-title">Inside and outside a Marine Protected Area</span>
+        <span class="illus-meta">Science communication · Digital</span>
+      </div>
+    </div>
+ 
+    <!-- Thesis diagram — centered, light bg only behind image -->
+    <div class="illus-block reveal" style="margin-top:3px;">
+      <div style="background:#f4f2ee;padding:2rem;display:inline-block;">
+        <img src="images/diagram_thesis.jpg" alt="Functional groups and species traits — conceptual diagram" style="width:480px;max-width:100%;height:auto;display:block;" onerror="this.style.display='none'">
+      </div>
+      <div class="illus-caption">
+        <span class="illus-title">Functional groups &amp; species traits</span>
+        <span class="illus-meta">Thesis figure · Published 2025</span>
+      </div>
+    </div>
+ 
+    <!-- NATURAL HISTORY -->
+    <div class="gallery-section-label reveal" style="margin-top:4rem;">Natural history &amp; species illustration</div>
+ 
+    <!-- Deep-sea creatures — full width, dark bg, image fills edge to edge -->
+    <div class="illus-block illus-dark reveal">
+      <img src="images/deep_sea_creatures.jpg" alt="Deep-sea creatures — octopus, chimera, and flatfish illustration" onerror="this.style.display='none'">
+      <div class="illus-caption" style="padding-left:0;padding-right:0;">
+        <span class="illus-title">Deep-sea creatures</span>
+        <span class="illus-meta">Procreate · Personal work</span>
+      </div>
+    </div>
+ 
+    <!-- Nautilus + Dogs — side by side, each on its own background -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px;">
+      <div class="illus-block illus-warm reveal" style="margin-top:0;">
+        <img src="images/nautilus_sketch.jpg" alt="Nautilus — ink illustration" style="max-width:400px;margin:0 auto;" onerror="this.style.display='none'">
+        <div class="illus-caption">
+          <span class="illus-title">Nautilus</span>
+          <span class="illus-meta">Procreate · Personal work</span>
+        </div>
+      </div>
+      <div class="illus-block illus-pale reveal" style="margin-top:0;">
+        <img src="images/dogs.jpg" alt="Dog portrait — digital painting" style="max-width:440px;margin:0 auto;" onerror="this.style.display='none'">
+        <div class="illus-caption">
+          <span class="illus-title">Dog portraits</span>
+          <span class="illus-meta">Procreate · Personal work</span>
+        </div>
+      </div>
+    </div>
+ 
+    <p class="reveal" style="font-size:0.75rem;color:var(--light);margin-top:1.5rem;font-style:italic;letter-spacing:0.04em;">
+      Current commissioned work is in Adobe Illustrator — personal and exploratory work above is in Procreate.
+    </p>
+ 
+  </div>
+</div>
+ 
+<!-- COMMISSIONED / UNDER WRAPS -->
+<div class="commissioned-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Commissioned work</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--fog);margin-bottom:0.5rem;">Currently under wraps</h2>
+      <p style="font-size:1rem;font-weight:300;color:var(--mid);max-width:560px;line-height:1.85;">Active commissions in Adobe Illustrator — to be shared on publication.</p>
+    </div>
+    <div class="commissioned-grid">
+ 
+      <div class="commissioned-card reveal">
+        <div class="lock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="commissioned-tag">Government commission · Adobe Illustrator</div>
+        <h3>Scientific illustration for a federal project</h3>
+        <p>Details to follow on publication.</p>
+      </div>
+ 
+      <div class="commissioned-card reveal">
+        <div class="lock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="commissioned-tag">Contributing illustrator · Children's book</div>
+        <h3>Lessons from nature during COVID-19 lockdown</h3>
+        <p>Contributing illustrations for a children's book about what the natural world can teach us — drawn from the quiet of lockdown. Details to follow on publication.</p>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- COMMISSION CTA -->
+<div class="commission-section">
+  <div class="container">
+    <div class="commission-inner">
+      <div class="commission-text reveal">
+        <div class="section-label">Work with me</div>
+        <h2>Want to commission<br><em>illustration work?</em></h2>
+        <p>I bring both the science and the art — which means you don't have to explain the biology. My background is in marine ecology but I illustrate across natural history and science communication more broadly.</p>
+        <p>Get in touch with a brief description of your project and I'll let you know if it's a good fit.</p>
+        <a href="index.html#contact" class="btn-primary">Get in Touch</a>
+      </div>
+      <div class="commission-details reveal">
+        <div class="commission-row">
+          <div class="commission-row-label">Best fit</div>
+          <div class="commission-row-val">Scientific figures · Natural history · Science communication · Children's science</div>
+        </div>
+        <div class="commission-row">
+          <div class="commission-row-label">Tools</div>
+          <div class="commission-row-val">Adobe Illustrator · Procreate</div>
+        </div>
+        <div class="commission-row">
+          <div class="commission-row-label">Background</div>
+          <div class="commission-row-val">MSc marine biology — the science is built in</div>
+        </div>
+        <div class="commission-row">
+          <div class="commission-row-label">Contact</div>
+          <div class="commission-row-val">megan.halliwell.davies@gmail.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Megan A. Davies &nbsp;·&nbsp; University of Victoria &nbsp;·&nbsp; Victoria, BC</p>
+</footer>
+ 
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+ 
+</body>
+</html>

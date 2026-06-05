@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teaching & Outreach — Megan A. Davies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abyss:    #060d17;
+      --midnight: #0b1824;
+      --navy:     #112236;
+      --deep:     #1a3a5c;
+      --ocean:    #1e6a8e;
+      --wave:     #3a9cbf;
+      --mist:     #7ac2d9;
+      --ice:      #c8e8f2;
+      --fog:      #e4f2f7;
+      --mid:      #8a9aaa;
+      --light:    #5a6a7a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--abyss); color: var(--fog); overflow-x: hidden; }
+ 
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; height: 72px; background: rgba(6,13,23,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(58,156,191,0.1); transition: box-shadow 0.3s; }
+    nav.scrolled { box-shadow: 0 2px 32px rgba(0,0,0,0.5); }
+    .nav-logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; }
+    .nav-logo span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 500; color: var(--fog); letter-spacing: 0.03em; }
+    .nav-logo span:last-child { font-size: 0.66rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); text-decoration: none; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--wave); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--fog); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--mist); }
+    .nav-links a.active::after { width: 100%; background: var(--mist); }
+    .nav-cta { background: transparent !important; color: var(--mist) !important; border: 1px solid rgba(122,194,217,0.4) !important; padding: 0.45rem 1.2rem !important; border-radius: 2px !important; }
+    .nav-cta:hover { background: rgba(122,194,217,0.1) !important; border-color: var(--mist) !important; color: var(--fog) !important; }
+    .nav-cta::after { display: none !important; }
+ 
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 160px 0 80px;
+      background: var(--abyss);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: rgba(58,156,191,0.1); }
+    .header-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 75% 50%, rgba(30,106,142,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--wave); margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::before { content: ''; width: 26px; height: 1px; background: var(--wave); }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 300; line-height: 1.08; color: var(--fog); margin-bottom: 1.6rem; }
+    .page-title em { font-style: italic; color: var(--mist); }
+    .page-intro { font-size: 1.12rem; font-weight: 300; line-height: 1.95; color: var(--mid); max-width: 660px; }
+ 
+    /* ── LECTURE FEATURE ── */
+    .lecture-feature {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .lecture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .lecture-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .lecture-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.8) contrast(1.05);
+    }
+    .lecture-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--midnight) 100%);
+    }
+    .lecture-text {
+      background: var(--midnight);
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .lecture-text .section-label { margin-bottom: 1.2rem; }
+    .lecture-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .lecture-text .course-code {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.8rem;
+    }
+    .lecture-text p { font-size: 1rem; font-weight: 300; line-height: 1.95; color: var(--mid); margin-bottom: 1.2rem; }
+ 
+    .role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5px;
+      background: rgba(58,156,191,0.08);
+      margin-top: 1.5rem;
+    }
+    .role-row {
+      display: flex;
+      background: var(--midnight);
+      padding: 0.9rem 1.2rem;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: background 0.2s;
+    }
+    .role-row:hover { background: var(--navy); }
+    .role-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--wave);
+      min-width: 90px;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .role-detail {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ice);
+      line-height: 1.6;
+    }
+    .role-detail span { color: var(--light); font-size: 0.82rem; display: block; margin-top: 0.15rem; }
+ 
+    /* ── TA SECTION ── */
+    .ta-section {
+      padding: 6rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .ta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .ta-text p { font-size: 1rem; font-weight: 300; line-height: 1.95; color: var(--mid); margin-bottom: 1.2rem; }
+    .ta-courses {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(58,156,191,0.07);
+    }
+    .ta-course {
+      background: var(--abyss);
+      padding: 1.2rem 1.6rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.2rem;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .ta-course:hover { background: var(--midnight); }
+    .ta-course-num {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--wave);
+    }
+    .ta-course-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      font-weight: 400;
+      color: var(--fog);
+    }
+    .ta-course-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--mist);
+      text-align: right;
+    }
+    .ta-course-count span { display: block; font-family: 'Jost', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); text-align: right; }
+ 
+    .museum-photos {
+      display: block;
+    }
+    .museum-photos img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.88);
+      transition: filter 0.3s;
+    }
+    .museum-photos img:hover { filter: brightness(1); }
+ 
+    /* ── OUTREACH ── */
+    .outreach-section {
+      padding: 7rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .outreach-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 3.5rem;
+      background: rgba(58,156,191,0.07);
+    }
+    .outreach-card {
+      background: var(--midnight);
+      padding: 2.2rem;
+      transition: background 0.3s;
+    }
+    .outreach-card:hover { background: var(--navy); }
+    .outreach-icon { width: 32px; height: 32px; color: var(--wave); margin-bottom: 1.2rem; }
+    .outreach-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--fog);
+      margin-bottom: 0.7rem;
+      line-height: 1.3;
+    }
+    .outreach-card p { font-size: 0.9rem; font-weight: 300; line-height: 1.85; color: var(--mid); }
+    .outreach-card a { color: var(--wave); text-decoration: none; border-bottom: 1px solid rgba(58,156,191,0.3); transition: border-color 0.2s; }
+    .outreach-card a:hover { border-color: var(--wave); }
+    .outreach-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.8rem;
+    }
+ 
+    /* ── SHIP-TO-SHORE FEATURE ── */
+    .ship-to-shore {
+      padding: 6rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .ship-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+    .ship-text p { font-size: 1rem; font-weight: 300; line-height: 1.95; color: var(--mid); margin-bottom: 1.2rem; }
+    .ship-image img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      filter: brightness(0.85);
+      border: 1px solid rgba(58,156,191,0.1);
+    }
+ 
+    /* ── PODCASTS ── */
+    .podcasts-section {
+      padding: 6rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .podcast-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .podcast-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(58,156,191,0.12);
+      padding: 2rem;
+      display: flex;
+      gap: 1.4rem;
+      align-items: flex-start;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .podcast-card:hover { border-color: rgba(58,156,191,0.3); background: rgba(58,156,191,0.04); }
+    .podcast-icon { width: 44px; height: 44px; color: var(--wave); flex-shrink: 0; }
+    .podcast-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--fog);
+      margin-bottom: 0.5rem;
+    }
+    .podcast-card p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; color: var(--mid); }
+    .podcast-card a { color: var(--wave); text-decoration: none; border-bottom: 1px solid rgba(58,156,191,0.3); transition: border-color 0.2s; }
+    .podcast-card a:hover { border-color: var(--wave); }
+ 
+    /* ── IMPOSTER SYNDROME ── */
+    .paper-callout {
+      padding: 5rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .paper-callout-inner {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem;
+      border: 1px solid rgba(58,156,191,0.15);
+      background: rgba(58,156,191,0.03);
+    }
+    .paper-callout svg { width: 40px; height: 40px; color: var(--wave); flex-shrink: 0; }
+    .paper-callout-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--fog);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .paper-callout-text p { font-size: 0.9rem; font-weight: 300; line-height: 1.8; color: var(--mid); }
+    .paper-callout-text a { color: var(--wave); text-decoration: none; border-bottom: 1px solid rgba(58,156,191,0.3); transition: border-color 0.2s; }
+    .paper-callout-text a:hover { border-color: var(--wave); }
+ 
+    /* ── FOOTER ── */
+    footer { background: var(--midnight); border-top: 1px solid rgba(58,156,191,0.08); padding: 1.8rem 0; text-align: center; }
+    footer p { font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; color: var(--light); opacity: 0.6; }
+ 
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .lecture-grid { grid-template-columns: 1fr; }
+      .lecture-text { padding: 3rem 1.5rem; }
+      .ta-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .outreach-cards { grid-template-columns: 1fr; }
+      .ship-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .podcast-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span>Megan A. Davies</span>
+    <span>Marine Biologist &amp; Science Communicator</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="expeditions.html">Expeditions</a></li>
+    <li><a href="teaching.html" class="active">Teaching &amp; Outreach</a></li>
+    <li><a href="illustration.html">Illustration</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+ 
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-bg"></div>
+  <div class="container">
+    <div class="section-label reveal">Teaching &amp; Outreach</div>
+    <h1 class="page-title reveal">
+      Sharing the ocean<br>
+      <em>with everyone.</em>
+    </h1>
+    <p class="page-intro reveal">
+      Good science doesn't stop at the lab door. I teach marine invertebrate biology at UVic, connect with classrooms from the deck of a research ship, and find every opportunity I can to share what's down there with people who've never seen it.
+    </p>
+  </div>
+</div>
+ 
+<!-- LECTURING — full feature -->
+<div class="lecture-feature">
+  <div class="lecture-grid">
+    <div class="lecture-image reveal">
+      <img src="images/lecturing.jpg" alt="Megan Davies lecturing BIOL322" />
+      <div class="lecture-image-overlay"></div>
+    </div>
+    <div class="lecture-text reveal">
+      <div class="section-label">University Teaching</div>
+      <h2>Biology of Marine Invertebrates</h2>
+      <div class="course-code">BIOL 322 · University of Victoria · 3rd Year · ~70 Students</div>
+      <p>I have lectured BIOL322 twice, most recently in 2026. The course covers the biology, ecology, and evolutionary adaptations of marine invertebrates — from cnidarians and echinoderms to molluscs and arthropods. I develop lecture content from primary literature and bring in my own deep-sea research wherever I can. My favourite part of teaching is taking a genuinely hard concept and finding the angle that makes it click — and then watching a student have that lightbulb moment of understanding.</p>
+      <p>In 2024, I also served as Senior Laboratory Instructor, designing and delivering the lab curriculum alongside my teaching — including coordinating live animal acquisition, permitting, and dissection logistics, and organising guest lectures from the Royal BC Museum and Ocean Networks Canada.</p>
+      <div class="role-list">
+        <div class="role-row">
+          <div class="role-label">Lecturer</div>
+          <div class="role-detail">BIOL322 — Biology of Marine Invertebrates
+            <span>University of Victoria · 2024 &amp; 2026–present</span>
+          </div>
+        </div>
+        <div class="role-row">
+          <div class="role-label">Lab Instructor</div>
+          <div class="role-detail">BIOL322 — Senior Laboratory Instructor
+            <span>University of Victoria · 2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- STUDENT QUOTES -->
+<div style="background:var(--abyss);padding:6rem 0;border-top:1px solid rgba(58,156,191,0.08);">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Student feedback</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--fog);margin-bottom:0.5rem;">In their own words</h2>
+      <p style="font-size:0.88rem;font-weight:300;color:var(--light);margin-bottom:3rem;font-style:italic;">Selected from UVic Course Experience Survey — BIOL 322, Marine Invertebrates</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;" class="reveal">
+ 
+      <div style="padding:2rem 2.2rem;background:rgba(58,156,191,0.04);border:1px solid rgba(58,156,191,0.12);border-left:2px solid var(--wave);">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.18rem;font-weight:300;font-style:italic;color:var(--ice);line-height:1.75;margin-bottom:1rem;">"Megan Davies quickly became one of my favourite profs I have had during my degree. She has such a thorough understanding of the material, it was impressive watching her quick responses to questions in class. She spoke clearly and had a knack of simplifying complex topics to make them much easier to understand."</p>
+        <div style="font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--light);">BIOL 322 Student</div>
+      </div>
+ 
+      <div style="padding:2rem 2.2rem;background:rgba(58,156,191,0.04);border:1px solid rgba(58,156,191,0.12);border-left:2px solid var(--wave);">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.18rem;font-weight:300;font-style:italic;color:var(--ice);line-height:1.75;margin-bottom:1rem;">"Megan is one of the best lecturers I have ever had. She was really passionate about the material and did a fantastic job of providing clear and concise information. She presents material in an engaging way and throughout the course demonstrated that she is incredibly perceptive to student feedback — I had the sense she really cares about students learning."</p>
+        <div style="font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--light);">BIOL 322 Student</div>
+      </div>
+ 
+      <div style="padding:2rem 2.2rem;background:rgba(58,156,191,0.04);border:1px solid rgba(58,156,191,0.12);border-left:2px solid var(--wave);grid-column:span 2;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.18rem;font-weight:300;font-style:italic;color:var(--ice);line-height:1.75;margin-bottom:1rem;">"Megan is one of the best lecturers I've had in my 5 years of undergrad at UVic. Her explanations were clearly defined, well thought out, and it was clear she was approaching topics from a student lens — when explaining complex concepts, she seemed to anticipate potential confusion and explain them effectively. I cannot express deeply enough that Megan should continue to be an instructor of this course. UVic is lucky to have her represent the biology department."</p>
+        <div style="font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--light);">BIOL 322 Student</div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- TA HISTORY -->
+<div class="ta-section">
+  <div class="container">
+    <div class="ta-grid">
+      <div class="reveal" style="grid-column:1;">
+        <div class="section-label">Teaching Assistantships</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;color:var(--fog);line-height:1.2;margin-bottom:1.4rem;">Five terms as a TA</h2>
+        <p style="font-size:1rem;font-weight:300;line-height:1.95;color:var(--mid);margin-bottom:1.2rem;">Before moving into a lecturing role, I TAd across three different UVic courses — all marine or invertebrate-focused. As a TA I led lab sections, supported students through data analysis, marked assignments, and helped coordinate course logistics.</p>
+        <p style="font-size:1rem;font-weight:300;line-height:1.95;color:var(--mid);margin-bottom:1.2rem;">Working closely with students at that level — early in their biology degrees, first encountering marine science properly — is what convinced me I wanted to teach. There's something particular about the moment a student sees a live chiton or gets their hands into a sea urchin dissection for the first time.</p>
+        <div class="ta-courses" style="margin-top:2rem;">
+          <div class="ta-course">
+            <div class="ta-course-num">BIOL 321</div>
+            <div class="ta-course-name">Survey of Invertebrates</div>
+            <div class="ta-course-count">×3<br><span>terms</span></div>
+          </div>
+          <div class="ta-course">
+            <div class="ta-course-num">BIOL 322</div>
+            <div class="ta-course-name">Biology of Marine Invertebrates</div>
+            <div class="ta-course-count">×1<br><span>term</span></div>
+          </div>
+          <div class="ta-course">
+            <div class="ta-course-num">BIOL 462</div>
+            <div class="ta-course-name">Community &amp; Ecosystem Ecology</div>
+            <div class="ta-course-count">×1<br><span>term</span></div>
+          </div>
+        </div>
+        <p style="font-size:0.75rem;color:var(--light);margin-top:0.8rem;letter-spacing:0.04em;">5 terms total across all courses · University of Victoria</p>
+      </div>
+      <div class="reveal" style="grid-column:2;">
+        <div class="museum-photos">
+          <img src="images/teaching_nautilus.jpg" alt="Teaching with nautilus shell — UVic specimen collection"
+            onerror="this.style.display='none'">
+        </div>
+        <p style="font-size:0.65rem;color:var(--light);margin-top:0.5rem;letter-spacing:0.06em;">UVic marine invertebrate specimen collection</p>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- SHIP-TO-SHORE -->
+<div class="ship-to-shore">
+  <div class="container">
+    <div class="ship-inner">
+      <div class="ship-image reveal">
+        <img src="images/comms_team.jpg" alt="Ship-to-Shore comms team"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="ship-text reveal">
+        <div class="section-label">Science at Sea</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--fog);line-height:1.2;margin-bottom:1.4rem;">Ship-to-Shore</h2>
+        <p>While at sea on research expeditions, I've connected directly with school groups through ship-to-shore programs — live broadcasts from the vessel where students can ask questions in real time and see what deep-sea research actually looks like in the field.</p>
+        <p>It's one of my favourite things to do. There's something special about talking to a classroom of twelve-year-olds while you're literally in the middle of the ocean, surrounded by equipment that's been to the seafloor and back. You can see the moment it lands for them.</p>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- OUTREACH CARDS -->
+<div class="outreach-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Community outreach</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--fog);margin-bottom:0.5rem;">Beyond the university</h2>
+      <p style="font-size:1rem;font-weight:300;color:var(--mid);max-width:580px;line-height:1.85;">Science communication is part of the job. Here's where I do it outside of the classroom.</p>
+    </div>
+    <div class="outreach-cards">
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Schools</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+        <h3>Skype a Scientist</h3>
+        <p>Available for classroom visits via the <a href="https://www.skypeascientist.com/" target="_blank" rel="noopener">Skype a Scientist</a> program. I talk marine biology, deep-sea ecology, and the realities of a career in ocean science — to any age group, any level of prior knowledge.</p>
+      </div>
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Program</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <h3>UVic Peer Mentoring</h3>
+        <p>Mentor through the University of Victoria's peer mentoring program, supporting undergraduate students navigating their degree, academic challenges, and paths into science careers.</p>
+      </div>
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Community</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <h3>World Fisheries Trust</h3>
+        <p>Science outreach work with the World Fisheries Trust, contributing to public engagement with fisheries science, ocean conservation, and sustainable marine resource management.</p>
+      </div>
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Early-career</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 20l5-8 4 4 4-6 5 10"/>
+          <path d="M3 3v18h18"/>
+        </svg>
+        <h3>DOERs — Deep Ocean Observing Strategy</h3>
+        <p>Member of the <a href="https://www.deepoceanobserving.org/" target="_blank" rel="noopener">DOOS Early-Career Researchers program</a> (2021–2024), a global deep-sea mentoring initiative connecting early-career researchers across the international deep-ocean science community. <a href="https://storymaps.arcgis.com/stories/6b70811732884162b35da102b5a23fab" target="_blank" rel="noopener">See the DOERs Story Map →</a></p>
+      </div>
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Statistics</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 20h.01M7 20v-4M12 20v-8M17 20V8M22 4v16"/>
+        </svg>
+        <h3>UVic Ecostats</h3>
+        <p>I facilitated <a href="https://ecostatsuvic.weebly.com/" target="_blank" rel="noopener">UVic Ecostats</a>, a graduate student-run group making ecological statistics accessible to students who find quantitative methods daunting. Come learn alongside people who also find it hard.</p>
+      </div>
+ 
+      <div class="outreach-card reveal">
+        <div class="outreach-tag">Professional</div>
+        <svg class="outreach-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9,12 11,14 15,10"/>
+        </svg>
+        <h3>CSAS Review &amp; Professional Service</h3>
+        <p>Participated in Canadian Science Advisory Secretariat (CSAS) peer review processes (2023), contributing to the translation of scientific research into fisheries and ocean management advice for the federal government.</p>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- PODCASTS -->
+<div class="podcasts-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Podcasts</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;color:var(--fog);margin-bottom:0.4rem;">On the air</h2>
+    </div>
+    <div class="podcast-list">
+ 
+      <div class="podcast-card reveal">
+        <svg class="podcast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M16.24 7.76a6 6 0 0 1 0 8.49M7.76 16.24a6 6 0 0 1 0-8.49M20.49 3.51a14 14 0 0 1 0 19.8M3.51 3.51a14 14 0 0 0 0 19.8"/>
+        </svg>
+        <div>
+          <h3>NatureFolx Podcast</h3>
+          <p>Hosted by Madison Bolt — my labmate Valesca de Groot and I talk marine stories and the realities of graduate school in ocean science. A candid, honest look at life in academia. <a href="https://naturefolx.com/" target="_blank" rel="noopener">Website →</a> &nbsp;·&nbsp; <a href="https://open.spotify.com/show/6pLeFAXPRhVZG6ww0yD481" target="_blank" rel="noopener">Listen on Spotify →</a></p>
+        </div>
+      </div>
+ 
+      <div class="podcast-card reveal">
+        <svg class="podcast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M16.24 7.76a6 6 0 0 1 0 8.49M7.76 16.24a6 6 0 0 1 0-8.49M20.49 3.51a14 14 0 0 1 0 19.8M3.51 3.51a14 14 0 0 0 0 19.8"/>
+        </svg>
+        <div>
+          <h3>OceanBites OutLoud</h3>
+          <p>An interview centred on imposter syndrome and what it means to be a scientist — the argument that you don't have to be a statistical expert to succeed in science, that the artist, the storyteller, the communicator all have a place. OceanBites makes cutting-edge ocean science accessible to everyone. <a href="https://oceanbitesorg.podbean.com/e/an-interview-with-megan-davies/" target="_blank" rel="noopener">Listen to the episode →</a></p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- IMPOSTER SYNDROME PAPER CALLOUT -->
+<div class="paper-callout">
+  <div class="container">
+    <div class="paper-callout-inner reveal" style="flex-direction:column;gap:2rem;">
+      <div style="display:flex;gap:2rem;align-items:flex-start;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;color:var(--wave);flex-shrink:0;">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        <div class="paper-callout-text">
+          <h3>On academic culture: Overcoming imposter syndrome</h3>
+          <p>Scientific working groups bring together experts to tackle complex conservation problems — but feelings of inadequacy can block the very innovation that diverse perspectives are meant to generate. Drawing on personal experience and the literature, we identify ten contribution strategies and advocate for inclusive approaches that respect the full diversity of personality types and perspectives. <a href="https://www.sciencedirect.com/science/article/pii/S0006320724001289" target="_blank" rel="noopener">Bates, A.E., M.A. Davies et al. <em>Biological Conservation</em>, 2024 →</a></p>
+        </div>
+      </div>
+      <img src="images/imposter.jpg"
+        alt="Contribution strategies for overcoming imposter syndrome — figure from Bates, Davies et al. 2024"
+        style="width:100%;max-width:600px;margin:0 auto;display:block;border:1px solid rgba(58,156,191,0.1);"
+        onerror="this.style.display='none'">
+      <p style="font-size:0.65rem;color:var(--light);text-align:center;letter-spacing:0.06em;">Figure from Bates, A.E., M.A. Davies et al. <em>Biological Conservation</em>, 2024</p>
+    </div>
+  </div>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Megan A. Davies &nbsp;·&nbsp; University of Victoria &nbsp;·&nbsp; Victoria, BC</p>
+</footer>
+ 
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+ 
+</body>
+</html>

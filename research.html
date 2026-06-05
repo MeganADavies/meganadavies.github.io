@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Research — Megan A. Davies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abyss:    #060d17;
+      --midnight: #0b1824;
+      --navy:     #112236;
+      --deep:     #1a3a5c;
+      --ocean:    #1e6a8e;
+      --wave:     #3a9cbf;
+      --mist:     #7ac2d9;
+      --ice:      #c8e8f2;
+      --fog:      #e4f2f7;
+      --mid:      #8a9aaa;
+      --light:    #5a6a7a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--abyss);
+      color: var(--fog);
+      overflow-x: hidden;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      background: rgba(6,13,23,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(58,156,191,0.1);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 32px rgba(0,0,0,0.5); }
+    .nav-logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; }
+    .nav-logo span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 500; color: var(--fog); letter-spacing: 0.03em; }
+    .nav-logo span:last-child { font-size: 0.66rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mist); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); text-decoration: none; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--wave); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--fog); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--mist); }
+    .nav-links a.active::after { width: 100%; background: var(--mist); }
+    .nav-cta { background: transparent !important; color: var(--mist) !important; border: 1px solid rgba(122,194,217,0.4) !important; padding: 0.45rem 1.2rem !important; border-radius: 2px !important; }
+    .nav-cta:hover { background: rgba(122,194,217,0.1) !important; border-color: var(--mist) !important; color: var(--fog) !important; }
+    .nav-cta::after { display: none !important; }
+ 
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 160px 0 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--abyss);
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(58,156,191,0.1);
+    }
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 70% at 80% 50%, rgba(30,106,142,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 50% at 10% 80%, rgba(58,156,191,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .header-bg-image {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 45%;
+      opacity: 0.08;
+      background-image: url('images/Bubblegum%20Coral.jpg');
+      background-size: cover;
+      background-position: center;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%);
+    }
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before { content: ''; width: 26px; height: 1px; background: var(--wave); }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--fog);
+      margin-bottom: 1.6rem;
+    }
+    .page-title em { font-style: italic; color: var(--mist); }
+    .page-intro {
+      font-size: 1.12rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--mid);
+      max-width: 680px;
+    }
+ 
+    /* ── EXPERTISE TAGS ── */
+    .expertise-section {
+      padding: 5rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 3rem;
+      background: rgba(58,156,191,0.07);
+    }
+    .expertise-item {
+      background: var(--midnight);
+      padding: 2rem 2.2rem;
+      transition: background 0.3s;
+    }
+    .expertise-item:hover { background: var(--navy); }
+    .expertise-icon {
+      width: 32px; height: 32px;
+      color: var(--wave);
+      margin-bottom: 1rem;
+    }
+    .expertise-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--fog);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .expertise-item p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid);
+    }
+ 
+    /* ── THESIS FEATURE ── */
+    .thesis-section {
+      padding: 7rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .thesis-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+    .thesis-image {
+      position: relative;
+    }
+    .thesis-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(0.8) saturate(0.9);
+      border: 1px solid rgba(58,156,191,0.12);
+      background: var(--midnight);
+    }
+    .thesis-image-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--navy) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(58,156,191,0.12);
+      flex-direction: column;
+      gap: 0.8rem;
+      color: var(--light);
+    }
+    .thesis-image-placeholder svg { width: 36px; height: 36px; opacity: 0.25; }
+    .thesis-image-placeholder span { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.4; }
+    .thesis-badge {
+      display: inline-block;
+      margin-top: 0.6rem;
+      background: var(--wave);
+      color: var(--abyss);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+    }
+    .thesis-text .section-label { margin-bottom: 1.2rem; }
+    .thesis-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+    .thesis-text .thesis-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--mist);
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+    .thesis-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--mid);
+      margin-bottom: 1.2rem;
+    }
+    .thesis-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5px;
+      background: rgba(58,156,191,0.08);
+      margin-top: 2rem;
+    }
+    .meta-row {
+      display: flex;
+      background: var(--abyss);
+    }
+    .meta-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--light);
+      padding: 0.75rem 1rem;
+      background: rgba(58,156,191,0.04);
+      min-width: 110px;
+      display: flex;
+      align-items: center;
+    }
+    .meta-value {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ice);
+      padding: 0.75rem 1.2rem;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .meta-value a { color: var(--mist); text-decoration: none; border-bottom: 1px solid rgba(122,194,217,0.25); transition: border-color 0.2s; }
+    .meta-value a:hover { border-color: var(--mist); }
+ 
+    /* ── PUBLICATIONS ── */
+    .publications-section {
+      padding: 7rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .pub-list {
+      margin-top: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pub-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      border-bottom: 1px solid rgba(58,156,191,0.08);
+      transition: background 0.25s;
+    }
+    .pub-item:first-child { border-top: 1px solid rgba(58,156,191,0.08); }
+    .pub-item:hover { background: rgba(58,156,191,0.03); }
+    .pub-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--wave);
+      padding: 2rem 1rem 2rem 0;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 2.2rem;
+    }
+    .pub-content {
+      padding: 2rem 0;
+    }
+    .pub-type {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 0.5rem;
+    }
+    .pub-type.inreview { color: var(--ocean); }
+    .pub-type.inprep { color: var(--light); }
+    .pub-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--fog);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+    .pub-authors {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+    .pub-authors strong { color: var(--ice); font-weight: 500; }
+    .pub-journal {
+      font-size: 0.85rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--light);
+    }
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--wave);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(58,156,191,0.3);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pub-link:hover { border-color: var(--wave); color: var(--mist); }
+    .pub-link svg { width: 11px; height: 11px; }
+ 
+    /* ── HONOURS ── */
+    .honours-section {
+      padding: 7rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .honours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+    .honours-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--mid);
+      margin-bottom: 1.2rem;
+    }
+    .honours-text em { font-style: italic; }
+    .honours-text a { color: var(--wave); text-decoration: none; border-bottom: 1px solid rgba(58,156,191,0.3); transition: border-color 0.2s; }
+    .honours-text a:hover { border-color: var(--wave); }
+    .award-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.4rem 1.6rem;
+      background: rgba(58,156,191,0.05);
+      border: 1px solid rgba(58,156,191,0.15);
+      margin-top: 2rem;
+    }
+    .award-badge svg { width: 20px; height: 20px; color: var(--wave); flex-shrink: 0; margin-top: 2px; }
+    .award-badge-text { font-size: 0.9rem; font-weight: 300; color: var(--ice); line-height: 1.6; }
+    .award-badge-text strong { display: block; font-weight: 500; color: var(--fog); margin-bottom: 0.2rem; }
+    .honours-image img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85) saturate(0.9);
+      border: 1px solid rgba(58,156,191,0.1);
+    }
+ 
+    /* ── TALKS ── */
+    .talks-section {
+      padding: 6rem 0;
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .talk-list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(58,156,191,0.06);
+    }
+    .talk-item {
+      background: var(--midnight);
+      padding: 1.6rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      transition: background 0.25s;
+    }
+    .talk-item:hover { background: var(--navy); }
+    .talk-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--fog);
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+    .talk-detail {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .talk-venue {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--wave);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .talk-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--light);
+      text-align: right;
+      margin-top: 0.2rem;
+    }
+ 
+    /* ── EXPEDITIONS CTA ── */
+    .expeditions-cta {
+      padding: 6rem 0;
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+      text-align: center;
+    }
+    .expeditions-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--fog);
+      margin-bottom: 1rem;
+    }
+    .expeditions-cta p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
+    }
+    .btn-primary { background: var(--wave); color: var(--abyss); padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s, transform 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--mist); transform: translateY(-1px); }
+    .btn-ghost { border: 1px solid rgba(122,194,217,0.35); color: var(--ice); padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; display: inline-block; margin-left: 1rem; }
+    .btn-ghost:hover { background: rgba(122,194,217,0.1); border-color: var(--mist); }
+ 
+    /* ── FOOTER ── */
+    footer { background: var(--midnight); border-top: 1px solid rgba(58,156,191,0.08); padding: 1.8rem 0; text-align: center; }
+    footer p { font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; color: var(--light); opacity: 0.6; }
+ 
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .thesis-inner, .honours-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .pub-item { grid-template-columns: 1fr; }
+      .pub-year { padding: 1.5rem 0 0; font-size: 0.85rem; }
+      .talk-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .talk-venue, .talk-year { text-align: left; }
+      section, .thesis-section, .publications-section, .honours-section, .talks-section { padding: 4rem 0; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span>Megan A. Davies</span>
+    <span>Marine Biologist &amp; Science Communicator</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="expeditions.html">Expeditions</a></li>
+    <li><a href="teaching.html">Teaching &amp; Outreach</a></li>
+    <li><a href="illustration.html">Illustration</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+ 
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-bg"></div>
+  <div class="header-bg-image"></div>
+  <div class="container">
+    <div class="section-label reveal">Research</div>
+    <h1 class="page-title reveal">
+      Deep-sea ecology<br>
+      <em>from the seafloor up.</em>
+    </h1>
+    <p class="page-intro reveal">
+      My research asks a fundamental question: how do we monitor and protect marine biodiversity in places that are logistically hard to reach? I work across deep-sea invertebrates and fish — corals, sponges, molluscs, flatfish — using trait-based and functional approaches to understand how these communities are structured and how they respond to a changing ocean.
+    </p>
+  </div>
+</div>
+ 
+<!-- EXPERTISE -->
+<div class="expertise-section">
+  <div class="container">
+    <div class="section-label reveal">Focus areas</div>
+    <div class="expertise-grid reveal">
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2C6 8 3 12 3 16a9 9 0 0 0 18 0c0-4-3-8-9-14z"/>
+          <path d="M12 12c-2 2-3 4-2 6"/>
+        </svg>
+        <h3>Deep-sea Invertebrate Ecology</h3>
+        <p>Community structure and functional ecology of deep-sea invertebrates — including cold-water corals, sponges, and molluscs — on Northeast Pacific seamounts, Atlantic vent systems, and within marine protected areas.</p>
+      </div>
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+        </svg>
+        <h3>Trait-based &amp; Functional Approaches</h3>
+        <p>Using species traits and functional diversity metrics to track ecological change, assess vulnerability, and develop monitoring frameworks that are scalable across data-poor deep-sea environments.</p>
+      </div>
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 20l5-8 4 4 4-6 5 10"/>
+          <path d="M3 3v18h18"/>
+        </svg>
+        <h3>Seamount Systems</h3>
+        <p>Fine-scale variability of benthic communities across seamount depth gradients. Patterns of occupancy, substrate associations, and implications for MPA design and adaptive management.</p>
+      </div>
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <h3>Deep-sea Marine Protected Areas</h3>
+        <p>Developing practical monitoring frameworks for deep-sea MPAs that can adapt to changing ocean conditions. Linking functional ecology to policy-relevant indicators and management outcomes.</p>
+      </div>
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 20h.01M7 20v-4M12 20v-8M17 20V8M22 4v16"/>
+        </svg>
+        <h3>Vulnerability Frameworks</h3>
+        <p>Trait-based vulnerability assessment for molluscan and invertebrate communities. Integrating species traits with environmental stressors to predict sensitivity to climate change and human impacts.</p>
+      </div>
+ 
+      <div class="expertise-item">
+        <svg class="expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 12c2-4 5-5 8-3s5 5 8 3"/>
+          <path d="M4 12c2 4 5 5 8 3s5-5 8-3"/>
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Fish Biology &amp; Behaviour</h3>
+        <p>Distribution and substrate preferences of deepsea sole on Northeast Pacific seamounts; locomotor kinematics of the spotted ratfish. Integrating fish ecology into broader deep-sea community assessments.</p>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- MSC THESIS -->
+<div class="thesis-section">
+  <div class="container">
+    <div class="thesis-inner">
+      <div class="thesis-image reveal">
+        <!-- Conceptual diagram — your own thesis figure -->
+        <img src="images/diagram_thesis.jpg" alt="Conceptual diagram: functional groups and species traits"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thesis-image-placeholder" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          <span>Thesis conceptual diagram</span>
+        </div>
+        <div class="thesis-badge">MSc · UVic · 2025</div>
+        <div style="margin-top:1.2rem;text-align:center;">
+          <a href="https://dspace.library.uvic.ca/items/1f010d30-9bdc-4ae3-93e0-c9dcddc03980" target="_blank" rel="noopener" class="btn-ghost" style="font-size:0.78rem;padding:0.6rem 1.4rem;">Read the Thesis</a>
+        </div>
+      </div>
+      <div class="thesis-text reveal">
+        <div class="section-label">MSc Thesis</div>
+        <h2>Monitoring Deep-Sea MPAs</h2>
+        <div class="thesis-subtitle">Functional and Trait-Based Approaches for Adaptive Management in Changing Oceans</div>
+        <p>Changing ocean conditions are disrupting marine ecosystems and posing serious challenges for managing biodiversity in remote, offshore MPAs. My thesis evaluated two approaches for assessing and monitoring species in these environments — where logistical constraints are immense and long-term ecological change is hard to detect.</p>
+        <p><strong style="color:var(--ice);font-weight:500;">Chapter 1 — Functional group monitoring, Northeast Pacific.</strong> Using ROV transect data from Fisheries and Oceans Canada, I analysed inter- and intra-seamount variability in depth-occupancy patterns of cold-water corals and sponges within the SG̲áan K̲ínghlas-Bowie and Tang.ɢ̱wan–ḥačxwiqak–Tsig̱is MPAs. Functional groups capture broad distribution patterns well, but species-level assessments remain necessary for detecting finer ecological change — an important nuance for MPA monitoring design.</p>
+        <p><strong style="color:var(--ice);font-weight:500;">Chapter 2 — Trait-based vulnerability framework, Azores.</strong> Using molluscs in the Azores Marine Park as a case study, I built a species-level vulnerability framework integrating functional traits with oceanographic models to quantify exposure, sensitivity, and adaptive capacity to ocean acidification and warming. Bivalves in northern MPAs emerged as particularly vulnerable due to high sensitivity and low adaptive capacity; cephalopods showed considerably greater resilience.</p>
+        <div class="thesis-meta">
+          <div class="meta-row">
+            <div class="meta-label">Institution</div>
+            <div class="meta-value">University of Victoria</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Completed</div>
+            <div class="meta-value">2025</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Supervisors</div>
+            <div class="meta-value">Dr. Amanda Bates (UVic) &amp; Dr. Cherisse Du Preez (DFO)</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Lab</div>
+            <div class="meta-value"><a href="https://www.oceanconservationlab.ca/" target="_blank" rel="noopener">Ocean Conservation Lab, Bates Lab</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Full-width photo grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:2rem;" class="reveal">
+      <div style="overflow:hidden;">
+        <img src="images/rov.jpg" alt="ROV at a glass sponge garden"
+          style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:brightness(0.85);"
+          onerror="this.parentElement.style.background='var(--navy)'">
+      </div>
+      <div style="overflow:hidden;">
+        <img src="images/primnoa.jpg" alt="Primnoa pacifica cold-water coral"
+          style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:brightness(0.85);"
+          onerror="this.parentElement.style.background='var(--navy)'">
+      </div>
+      <div style="overflow:hidden;">
+        <img src="images/parastenella.jpg" alt="Parastenella spp. large gorgonian coral"
+          style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:brightness(0.85);"
+          onerror="this.parentElement.style.background='var(--navy)'">
+      </div>
+      <div style="overflow:hidden;">
+        <img src="images/farrea.jpg" alt="Farrea spp. glass reef sponge"
+          style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:brightness(0.85);"
+          onerror="this.parentElement.style.background='var(--navy)'">
+      </div>
+    </div>
+    <p style="font-size:0.65rem;color:var(--light);letter-spacing:0.06em;margin-top:0.6rem;line-height:1.5;">
+      ROV imagery © Northeast Pacific Seamount Expedition Partners
+    </p>
+  </div>
+</div>
+ 
+<!-- PUBLICATIONS -->
+<div class="publications-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Publications</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--fog);margin-bottom:0.4rem;">Peer-reviewed work</h2>
+    </div>
+ 
+    <div class="pub-list">
+ 
+      <!-- PUBLISHED -->
+      <div class="pub-item reveal">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <div class="pub-type">Published</div>
+          <div class="pub-title">State of deep-sea research and conservation in the Northeast Pacific and Hawaiian Islands: implications for policy and management</div>
+          <div class="pub-authors">Girard, F., J.M. Alfaro-Lucas, A.R. Baco, <strong>M.A. Davies</strong>, and J.M.A. van der Grient, et al.</div>
+          <div class="pub-journal">Progress in Oceanography · doi:10.1016/j.pocean.2026.103452</div>
+          <a href="https://www.sciencedirect.com/science/article/pii/S0079661126000522" target="_blank" rel="noopener" class="pub-link">
+            Read paper
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+ 
+      <div class="pub-item reveal">
+        <div class="pub-year">2024</div>
+        <div class="pub-content">
+          <div class="pub-type">Published</div>
+          <div class="pub-title">Overcoming imposter syndrome: Contribute to working groups and build strong networks</div>
+          <div class="pub-authors">Bates, A.E., <strong>M.A. Davies</strong>, et al. and S.C. Baker</div>
+          <div class="pub-journal">Biological Conservation · 293:110566</div>
+          <a href="https://www.sciencedirect.com/science/article/pii/S0006320724001289" target="_blank" rel="noopener" class="pub-link">
+            Read paper
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+ 
+      <!-- IN REVIEW -->
+      <div class="pub-item reveal">
+        <div class="pub-year" style="color:var(--ocean);">—</div>
+        <div class="pub-content">
+          <div class="pub-type inreview">In Review</div>
+          <div class="pub-title">Fine-scale variability of cold-water coral and sponge communities on protected Northeast Pacific seamounts</div>
+          <div class="pub-authors"><strong>Davies, M.A.</strong>, C. Du Preez, and A.E. Bates</div>
+          <div class="pub-journal">Aquatic Conservation: Marine and Freshwater Ecosystems</div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- HONOURS -->
+<div class="honours-section">
+  <div class="container">
+    <div class="section-label reveal">Undergraduate research</div>
+    <div class="honours-grid">
+      <div class="honours-text reveal">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;color:var(--fog);line-height:1.2;margin-bottom:1.4rem;">Honours Research:<br>Deepsea Sole</h2>
+        <p>My honours project investigated the distribution and substrate preferences of deepsea sole (<em>Embassichthys bathybius</em>) on six rocky Northeast Pacific seamounts, using ROV image data annotated in BIIGLE 2.0.</p>
+        <p>Conventional wisdom held that flatfish prefer sandy substrates. Testing this on seamounts, I found the opposite: a significant bias toward complex substrate (69% of cases despite only 55% availability), with a 2:1 preference in mixed areas. Fish size related significantly to depth, temperature, and dissolved oxygen — patterns consistent with ontogenetic vertical migration and suggesting seamount pinnacles serve as important juvenile nursery grounds.</p>
+        <div style="margin-top:1.4rem;margin-bottom:1.8rem;">
+          <div style="font-size:0.68rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--light);margin-bottom:0.3rem;">Supervisors</div>
+          <div style="font-size:0.88rem;font-weight:300;color:var(--mid);">Dr. Francis Juanes &amp; Dr. Cherisse Du Preez · University of Victoria · 2021</div>
+        </div>
+        <div class="award-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          <div class="award-badge-text">
+            <strong>Boehm Family Award for Excellence in Science</strong>
+            UVic Honours Fest 2021 — 1st place presenter, Department of Biology, among 56 students across six departments
+          </div>
+        </div>
+      </div>
+      <div class="honours-image reveal">
+        <img src="images/deepsea_sole_1.jpg" alt="Deepsea sole on complex substrate — Northeast Pacific seamount"
+          style="width:100%;display:block;filter:brightness(0.88);"
+          onerror="this.style.display='none'">
+        <img src="images/deepsea_sole_2.jpg" alt="Deepsea sole distribution — ROV imagery"
+          style="width:100%;display:block;margin-top:3px;filter:brightness(0.88);"
+          onerror="this.style.display='none'">
+        <p style="font-size:0.65rem;color:var(--light);letter-spacing:0.06em;margin-top:0.6rem;line-height:1.5;">
+          <em>Embassichthys bathybius</em> on Northeast Pacific seamounts
+        </p>
+      </div>
+    </div>
+ 
+    <!-- RATFISH — sits below the two-column grid -->
+    <div style="margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(58,156,191,0.1);" class="reveal">
+      <div class="section-label" style="margin-bottom:1rem;">Bamfield Marine Sciences Centre</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+        <div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--fog);margin-bottom:0.8rem;line-height:1.3;">Locomotor Kinematics of the Spotted Ratfish (<em>Hydrolagus colliei</em>)</h3>
+          <p style="font-size:0.95rem;font-weight:300;line-height:1.9;color:var(--mid);">As part of the Biology of Marine Fishes course at Bamfield Marine Sciences Centre, I conducted a study on the locomotor kinematics of the spotted ratfish, with a focus on pectoral fin movement and the implications of body size on swimming mechanics.</p>
+          <video controls muted playsinline
+            style="width:100%;display:block;margin-top:1.2rem;margin-bottom:1.2rem;border:1px solid rgba(58,156,191,0.15);">
+            <source src="images/ratfish_swim.mp4" type="video/mp4">
+          </video>
+          <p style="font-size:0.95rem;font-weight:300;line-height:1.9;color:var(--mid);">Smaller individuals swam faster relative to body length — consistent with ontogenetic shifts in locomotive strategy. Body drag increased with body mass, but pectoral fin drag did not, suggesting ratfish use a more complex thrust strategy than previously anticipated — possibly exploiting the hydrodynamic ground effect near the seafloor.</p>
+        </div>
+        <div>
+          <img src="images/ratfish.jpg" alt="Spotted ratfish (Hydrolagus colliei) — Bamfield"
+            style="width:100%;display:block;filter:brightness(0.9);border:1px solid rgba(58,156,191,0.1);"
+            onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</div>
+ 
+<!-- TALKS -->
+<div class="talks-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Presentations</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;color:var(--fog);margin-bottom:0.4rem;">Selected talks</h2>
+    </div>
+    <div class="talk-list reveal">
+ 
+      <div class="talk-item">
+        <div>
+          <div class="talk-title">Patterns of deep-sea coral and sponge monitoring groups on Northeast Pacific seamounts: Management Implications</div>
+          <div class="talk-detail"><strong style="color:var(--ice);font-weight:500;">Davies, M.A.</strong>, C. Du Preez, and A.E. Bates</div>
+        </div>
+        <div>
+          <div class="talk-venue">PICES Annual Meeting · Seattle</div>
+          <div class="talk-year">2023</div>
+        </div>
+      </div>
+ 
+      <div class="talk-item">
+        <div>
+          <div class="talk-title">Patterns of deep-sea coral and sponge monitoring groups on Northeast Pacific seamounts</div>
+          <div class="talk-detail"><strong style="color:var(--ice);font-weight:500;">Davies, M.A.</strong>, C. Du Preez, and A.E. Bates · 8th International Symposium on Deep-Sea Corals</div>
+        </div>
+        <div>
+          <div class="talk-venue">Edinburgh, UK</div>
+          <div class="talk-year">2023</div>
+        </div>
+      </div>
+ 
+      <div class="talk-item">
+        <div>
+          <div class="talk-title">Patterns of deep-sea coral and sponge monitoring groups on Northeast Pacific seamounts</div>
+          <div class="talk-detail"><strong style="color:var(--ice);font-weight:500;">Davies, M.A.</strong>, C. Du Preez, and A.E. Bates · UVic Biology Departmental Seminar</div>
+        </div>
+        <div>
+          <div class="talk-venue">Victoria, BC</div>
+          <div class="talk-year">2023</div>
+        </div>
+      </div>
+ 
+      <div class="talk-item">
+        <div>
+          <div class="talk-title">Distribution and Substrate Preferences of Deepsea Sole on Northeast Pacific Seamounts</div>
+          <div class="talk-detail"><strong style="color:var(--ice);font-weight:500;">Davies, M.A.</strong>, F. Juanes, and C. Du Preez · Pacific Ecology and Evolution Conference</div>
+        </div>
+        <div>
+          <div class="talk-venue">Victoria, BC</div>
+          <div class="talk-year">2022</div>
+        </div>
+      </div>
+ 
+      <div class="talk-item">
+        <div>
+          <div class="talk-title">1st Place Talk — UVic Biology Department Graduate Symposium</div>
+          <div class="talk-detail">Award for best oral presentation</div>
+        </div>
+        <div>
+          <div class="talk-venue">UVic · Award</div>
+          <div class="talk-year">2024</div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- EXPEDITIONS CTA -->
+<div class="expeditions-cta">
+  <div class="section-label" style="justify-content:center;margin-bottom:1.2rem;">The field component</div>
+  <h2>Research doesn't (always) happen at a desk.</h2>
+  <p>Three expeditions, 10+ weeks at sea, a sub dive past 2,000 metres, and three newly discovered hydrothermal vent sites. See where the data comes from.</p>
+  <a href="expeditions.html" class="btn-primary">See the Expeditions</a>
+  <a href="index.html#contact" class="btn-ghost">Get in Touch</a>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Megan A. Davies &nbsp;·&nbsp; University of Victoria &nbsp;·&nbsp; Victoria, BC</p>
+</footer>
+ 
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expeditions — Megan A. Davies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abyss:    #060d17;
+      --midnight: #0b1824;
+      --navy:     #112236;
+      --deep:     #1a3a5c;
+      --ocean:    #1e6a8e;
+      --wave:     #3a9cbf;
+      --mist:     #7ac2d9;
+      --ice:      #c8e8f2;
+      --fog:      #e4f2f7;
+      --mid:      #8a9aaa;
+      --light:    #5a6a7a;
+      --vent-red: #c45c2a;
+      --vent-glow:#e8832a;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--abyss);
+      color: var(--fog);
+      overflow-x: hidden;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      background: rgba(6,13,23,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(58,156,191,0.1);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 32px rgba(0,0,0,0.5); }
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .nav-logo span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--fog);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo span:last-child {
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--wave);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--fog); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--mist); }
+    .nav-links a.active::after { width: 100%; background: var(--mist); }
+    .nav-cta {
+      background: transparent !important;
+      color: var(--mist) !important;
+      border: 1px solid rgba(122,194,217,0.4) !important;
+      padding: 0.45rem 1.2rem !important;
+      border-radius: 2px !important;
+    }
+    .nav-cta:hover {
+      background: rgba(122,194,217,0.1) !important;
+      border-color: var(--mist) !important;
+      color: var(--fog) !important;
+    }
+    .nav-cta::after { display: none !important; }
+ 
+    /* ── DIVE INTRO ── */
+    .dive-intro {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 72px 2rem 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--abyss);
+    }
+ 
+    /* Animated bubbles / particles going up = you're going down */
+    .dive-intro::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 60%, rgba(30,106,142,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 60% at 20% 80%, rgba(58,156,191,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 80% 30%, rgba(14,28,48,0.8) 0%, transparent 60%);
+      pointer-events: none;
+    }
+ 
+    .surface-light {
+      position: absolute;
+      top: 72px; left: 0; right: 0;
+      height: 280px;
+      background: linear-gradient(to bottom,
+        rgba(58,156,191,0.12) 0%,
+        rgba(30,106,142,0.06) 50%,
+        transparent 100%);
+      pointer-events: none;
+    }
+ 
+    .depth-line {
+      position: absolute;
+      left: 50%;
+      top: 72px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom,
+        rgba(58,156,191,0.4) 0%,
+        rgba(58,156,191,0.15) 50%,
+        transparent 100%);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+ 
+    .dive-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 1.8rem;
+      position: relative;
+      z-index: 2;
+    }
+ 
+    .dive-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--fog);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .dive-title em {
+      font-style: italic;
+      color: var(--mist);
+    }
+ 
+    .dive-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ice);
+      opacity: 0.7;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+ 
+    .dive-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--mid);
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+      position: relative;
+      z-index: 2;
+    }
+ 
+    .depth-scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--light);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+      animation: bob 3s ease-in-out infinite;
+    }
+    .depth-scroll-hint svg {
+      width: 20px; height: 20px;
+      color: var(--wave);
+      animation: sink 2s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+    @keyframes sink {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+ 
+    /* ── DEPTH METER (sidebar) ── */
+    .depth-track {
+      position: fixed;
+      left: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .depth-track.visible { opacity: 1; }
+    .depth-track-line {
+      width: 1px;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, rgba(58,156,191,0.4), transparent);
+    }
+    .depth-indicator {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: var(--wave);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+    }
+    .depth-marker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--mist);
+      text-align: center;
+    }
+    .depth-marker span {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+ 
+    /* ── EXPEDITION SECTIONS ── */
+    .expedition {
+      position: relative;
+      padding: 0;
+    }
+ 
+    /* Gradient transitions between expeditions to feel like descending */
+    .expedition-header {
+      padding: 8rem 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+ 
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 26px; height: 1px;
+      background: var(--wave);
+    }
+ 
+    .depth-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(58,156,191,0.1);
+      border: 1px solid rgba(58,156,191,0.25);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 1.4rem;
+    }
+    .depth-badge svg { width: 12px; height: 12px; }
+ 
+    .expedition-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--fog);
+      margin-bottom: 0.6rem;
+    }
+    .expedition-vessel {
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.6rem;
+    }
+    .expedition-intro {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--mid);
+      max-width: 660px;
+    }
+ 
+    /* ── FALKOR — surface to deep ── */
+    #falkor {
+      background: linear-gradient(to bottom,
+        #0b1824 0%,
+        #0d1f33 30%,
+        #091828 70%,
+        #060f1e 100%);
+    }
+ 
+    .falkor-hero {
+      width: 100%;
+      height: 60vh;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a1f35 0%, #152a45 50%, #080f1a 100%);
+      /* Replace with: background-image: url('images/falkor/FKt230303-FalkorB...007.jpeg');
+         background-size: cover; background-position: center; */
+    }
+    .falkor-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+    .falkor-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(9,24,40,0.8) 80%,
+        #091828 100%
+      );
+    }
+    .falkor-hero-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 3rem;
+      right: 3rem;
+      z-index: 2;
+    }
+    .falkor-hero-caption h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--fog);
+    }
+    .falkor-hero-caption p {
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-top: 0.3rem;
+      letter-spacing: 0.06em;
+    }
+ 
+    /* Photo grid layouts */
+    .photo-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .photo-grid-2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .photo-grid-2-r {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .photo-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .photo-grid-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .photo-grid-masonry .span-2 { grid-column: span 2; }
+    .photo-grid-masonry .tall { grid-row: span 2; }
+ 
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.3s ease;
+      filter: brightness(0.88) saturate(0.9);
+    }
+    .photo-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1.05);
+    }
+    .photo-item .caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 1rem 0.8rem;
+      background: linear-gradient(to top, rgba(6,13,23,0.9) 0%, transparent 100%);
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--ice);
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .photo-item:hover .caption { opacity: 1; }
+ 
+    /* Placeholder for missing images */
+    .photo-placeholder {
+      width: 100%;
+      min-height: 240px;
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--navy) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--light);
+    }
+    .photo-placeholder svg { width: 28px; height: 28px; opacity: 0.3; }
+    .photo-placeholder span {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+ 
+    .expedition-body {
+      padding: 5rem 0 6rem;
+    }
+ 
+    .expedition-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+ 
+    .expedition-text p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 1.3rem;
+    }
+    .expedition-text a {
+      color: var(--wave);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(58,156,191,0.3);
+      transition: border-color 0.2s;
+    }
+    .expedition-text a:hover { border-color: var(--wave); }
+ 
+    .expedition-highlight {
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--wave);
+      background: rgba(58,156,191,0.04);
+      margin: 2rem 0;
+    }
+    .expedition-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem !important;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ice) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0 !important;
+    }
+ 
+    .expedition-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5px;
+      background: rgba(58,156,191,0.08);
+    }
+    .fact-row {
+      display: flex;
+      background: var(--midnight);
+      padding: 0;
+    }
+    .fact-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--light);
+      padding: 0.9rem 1.2rem;
+      background: rgba(58,156,191,0.04);
+      min-width: 130px;
+      display: flex;
+      align-items: center;
+    }
+    .fact-value {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--ice);
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+ 
+    /* Video embed */
+    .video-section {
+      padding: 4rem 0;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .video-item {
+      position: relative;
+      background: var(--midnight);
+      overflow: hidden;
+    }
+    .video-item video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      object-fit: cover;
+    }
+    .video-caption {
+      padding: 0.8rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+    .video-item-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.2rem;
+    }
+ 
+    /* ── DEPTH DIVIDER ── */
+    .depth-divider {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 5rem 0;
+      position: relative;
+    }
+    .depth-divider::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom,
+        transparent,
+        rgba(58,156,191,0.3) 30%,
+        rgba(58,156,191,0.3) 70%,
+        transparent);
+      transform: translateX(-50%);
+    }
+    .depth-divider-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      background: var(--abyss);
+      padding: 0 2rem;
+    }
+    .depth-divider-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--wave);
+      line-height: 1;
+    }
+    .depth-divider-text {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      line-height: 1.6;
+    }
+ 
+    /* ── ATLANTIS / ALVIN ── */
+    #atlantis {
+      background: linear-gradient(to bottom,
+        #060f1e 0%,
+        #050c18 50%,
+        #040b15 100%);
+      border-top: 1px solid rgba(58,156,191,0.06);
+    }
+ 
+    .alvin-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+      margin: 0 0 4px;
+    }
+    .alvin-feature-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      /* Replace with: background-image: url('images/atlantis/[your-alvin-photo]');
+         background-size: cover; background-position: center; */
+      background: linear-gradient(135deg, #080f1a 0%, #0d1e30 100%);
+    }
+    .alvin-feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+    }
+    .alvin-feature-text {
+      background: var(--midnight);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .alvin-feature-text .section-label { margin-bottom: 1.2rem; }
+    .alvin-feature-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .alvin-feature-text .vessel {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.8rem;
+    }
+    .alvin-feature-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.95;
+      color: var(--mid);
+      margin-bottom: 1.2rem;
+    }
+ 
+    /* ── TULLY ── */
+    #tully {
+      background: linear-gradient(to bottom,
+        #040b15 0%,
+        #030810 100%);
+      border-top: 1px solid rgba(58,156,191,0.05);
+    }
+ 
+    /* ── THE DEEP — species gallery ── */
+    #deep-gallery {
+      background: #020609;
+      border-top: 1px solid rgba(58,156,191,0.05);
+      padding: 7rem 0;
+    }
+ 
+    .species-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      margin-top: 3rem;
+    }
+    .species-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--midnight);
+    }
+    .species-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.8) saturate(0.85);
+      transition: filter 0.4s, transform 0.6s;
+    }
+    .species-item:hover img {
+      filter: brightness(1) saturate(1.1);
+      transform: scale(1.06);
+    }
+    .species-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+    .species-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(2,6,9,0.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .species-item:hover .species-overlay { opacity: 1; }
+    .species-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--fog);
+      line-height: 1.3;
+    }
+    .species-loc {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      margin-top: 0.2rem;
+    }
+ 
+    /* ── BACK TO SURFACE ── */
+    .surface-cta {
+      padding: 8rem 0;
+      text-align: center;
+      background: linear-gradient(to bottom, #020609 0%, var(--abyss) 100%);
+      position: relative;
+    }
+    .surface-cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; right: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(58,156,191,0.3), transparent);
+      transform: translateX(-50%);
+    }
+    .surface-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--fog);
+      margin-bottom: 1rem;
+    }
+    .surface-cta p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
+    }
+    .btn-primary {
+      background: var(--wave);
+      color: var(--abyss);
+      padding: 0.85rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--mist); transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1px solid rgba(122,194,217,0.35);
+      color: var(--ice);
+      padding: 0.85rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+    .btn-ghost:hover { background: rgba(122,194,217,0.1); border-color: var(--mist); }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+      padding: 1.8rem 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--light);
+      opacity: 0.6;
+    }
+ 
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .depth-track { display: none; }
+      .expedition-2col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .alvin-feature { grid-template-columns: 1fr; }
+      .photo-grid-3 { grid-template-columns: 1fr 1fr; }
+      .photo-grid-4 { grid-template-columns: 1fr 1fr; }
+      .photo-grid-masonry { grid-template-columns: 1fr 1fr; }
+      .species-grid { grid-template-columns: 1fr 1fr; }
+      .species-item:first-child { grid-column: span 1; grid-row: span 1; }
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span>Megan A. Davies</span>
+    <span>Marine Biologist &amp; Science Communicator</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="expeditions.html" class="active">Expeditions</a></li>
+    <li><a href="teaching.html">Teaching &amp; Outreach</a></li>
+    <li><a href="illustration.html">Illustration</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+ 
+<!-- DEPTH TRACK (fixed sidebar) -->
+<div class="depth-track" id="depthTrack">
+  <div class="depth-track-line"></div>
+  <div class="depth-indicator">Depth</div>
+  <div class="depth-marker" id="depthMarker">
+    0m<span>surface</span>
+  </div>
+  <div class="depth-track-line"></div>
+</div>
+ 
+<!-- DIVE INTRO -->
+<div class="dive-intro" id="diveIntro">
+  <div class="surface-light"></div>
+  <div class="depth-line"></div>
+ 
+  <div class="dive-eyebrow">Research Expeditions · 2023–2025</div>
+  <h1 class="dive-title">Go<br><em>Deeper.</em></h1>
+  <p class="dive-tagline">Descend into the research.</p>
+  <p class="dive-sub">
+    Three research cruises. Over ten weeks at sea. A submersible dive past 2,000 metres. Three newly discovered hydrothermal vent sites on the Mid-Atlantic Ridge. Scroll to descend.
+  </p>
+  <div class="depth-scroll-hint">
+    <span>Begin descent</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</div>
+ 
+<!-- ═══════════════════════════════════════
+     EXPEDITION 1 — R/V FALKOR (TOO) 2023
+═══════════════════════════════════════ -->
+<div class="expedition" id="falkor">
+ 
+  <div class="expedition-header">
+    <div class="container">
+      <div class="reveal">
+        <div class="depth-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          Expedition 01 · 2023
+        </div>
+        <h2 class="expedition-title">In Search of<br>Hydrothermal Lost Cities</h2>
+        <div class="expedition-vessel">R/V Falkor (too) · Schmidt Ocean Institute · Mid-Atlantic Ridge</div>
+        <p class="expedition-intro">
+          The goal was to find hydrothermal vent systems like "Lost City" — rare alkaline vents formed by serpentinization, suspected to harbour chemistry closest to the conditions that may have facilitated the origin of life on Earth. We didn't find Lost City vents — but we discovered three previously undescribed black smoker hydrothermal vent sites on the Mid-Atlantic Ridge. I led the photogrammetry project and 3D vent reconstructions — and brought the discoveries to the public through my own science communication, reaching over 220,000 impressions on X (formerly Twitter). <a href="https://schmidtocean.org/cruise/in-search-of-hydrothermal-lost-cities/" target="_blank" rel="noopener" style="color:var(--mist);border-bottom:1px solid rgba(122,194,217,0.35);">View the expedition →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- HERO BANNER — Falkor at sunset -->
+  <div class="photo-item" style="height:60vh;min-height:420px;">
+    <img src="images/Falkor2.jpg" alt="R/V Falkor (too) at sunset, Mid-Atlantic Ridge" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(0.88);">
+    <div class="caption" style="opacity:1;font-size:0.8rem;">R/V Falkor (too) · Mid-Atlantic Ridge · 2023 · Photo: Schmidt Ocean Institute</div>
+  </div>
+ 
+  <!-- SHIP STRIP — 4 column -->
+  <div class="photo-grid-4 reveal" style="margin-top:4px;">
+    <div class="photo-item" style="min-height:260px;">
+      <img src="images/Falkor7.jpg" alt="Falkor bow" onerror="this.style.display='none'">
+      <div class="caption">Bow-on in the Atlantic</div>
+    </div>
+    <div class="photo-item" style="min-height:260px;">
+      <img src="images/Falkor6.jpg" alt="ROV control room, Falkor (too)" onerror="this.style.display='none'">
+      <div class="caption">ROV control room, Falkor (too)</div>
+    </div>
+    <div class="photo-item" style="min-height:260px;">
+      <img src="images/Falkor3.jpg" alt="Full science and ship crew · R/V Falkor (too) · 2023" onerror="this.style.display='none'">
+      <div class="caption">Full science and ship crew · R/V Falkor (too) · 2023</div>
+    </div>
+    <div class="photo-item" style="min-height:260px;">
+      <img src="images/Falkor5.jpg" alt="Dusk from the bow" onerror="this.style.display='none'">
+      <div class="caption">Dusk over the Atlantic</div>
+    </div>
+  </div>
+ 
+  <!-- TEXT + FACTS -->
+  <div class="expedition-body">
+    <div class="container">
+      <div class="expedition-2col">
+        <div class="expedition-text reveal">
+          <div class="section-label">The Discovery</div>
+          <p>The expedition's goal was to find more vent fields like "Lost City" — the alkaline, carbonate-spire vents first discovered in 2000, formed not by volcanic heat but by a chemical reaction between seawater and exposed mantle rock called serpentinization. Scientists believe these vents may represent conditions similar to those that facilitated the origin of life on Earth, possibly on other planets too. Only a handful had ever been found.</p>
+          <p>Using ROV <em>SuBastian</em>, we found three new black smoker vent sites — not the Lost City-type vents we were searching for, but a significant discovery in their own right. Dense communities of vent-specific fauna never before documented at these locations. I led the photogrammetry component, building 3D reconstructions of the vent structures from ROV imagery — baseline data that lets us track how these landscapes change over time.</p>
+          <div class="expedition-highlight">
+            <p>"These vents may harbour chemistry closest to the conditions that sparked life on Earth."</p>
+          </div>
+          <p>While onboard, I communicated the discoveries in real time through X (formerly Twitter), reaching over 220,000 impressions — because discoveries like this deserve to be shared as they happen.</p>
+        </div>
+        <div class="reveal">
+          <div class="expedition-facts">
+            <div class="fact-row">
+              <div class="fact-label">Vessel</div>
+              <div class="fact-value">R/V Falkor (too), Schmidt Ocean Institute</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Year</div>
+              <div class="fact-value">2023</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Location</div>
+              <div class="fact-value">Mid-Atlantic Ridge</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">ROV</div>
+              <div class="fact-value">SuBastian</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Discoveries</div>
+              <div class="fact-value">3 new hydrothermal vent sites</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">My role</div>
+              <div class="fact-value">Photogrammetry lead · 3D vent reconstructions</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">My outreach</div>
+              <div class="fact-value">&gt;220,000 impressions via X (Twitter) — my personal science communication onboard</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Paper</div>
+              <div class="fact-value">Alfaro-Lucas et al. <em>In prep.</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- EXPEDITION VIDEO — full width -->
+  <div style="padding:4rem 0;background:var(--midnight);border-top:1px solid rgba(58,156,191,0.08);">
+    <div class="container">
+      <div class="section-label reveal">The expedition · in full</div>
+      <h3 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--fog);margin-bottom:1.5rem;">Four minutes from the Mid-Atlantic Ridge</h3>
+      <video controls playsinline poster="images/Species8.jpg"
+        style="width:100%;display:block;border:1px solid rgba(58,156,191,0.12);max-height:600px;object-fit:cover;">
+        <source src="images/MAR_cruise.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+ 
+  <!-- YOU AT THE CONSOLE — featured wide -->
+  <div class="photo-grid-2 reveal" style="margin-top:4px;">
+    <div class="photo-item" style="min-height:420px;">
+      <img src="images/ship_work1.jpg" alt="At the ROV control console" onerror="this.style.display='none'">
+      <div class="caption">Discussing bathymetry with Dr. David Caress</div>
+    </div>
+    <div class="photo-item" style="min-height:420px;">
+      <img src="images/ship_work7.jpg" alt="ROV control room, all screens" onerror="this.style.display='none'">
+      <div class="caption">Watching plume signals, Flakor (too) computer room</div>
+    </div>
+  </div>
+ 
+  <!-- SCIENCE GRID ROW 1 — 2 column landscape -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
+    <div class="photo-item" style="aspect-ratio:16/9;overflow:hidden;">
+      <img src="images/ship_work2.jpg" alt="Laughing with David Caress at bathymetry screens" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">At the ROV control console — 3,732 m depth on screen</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:16/9;overflow:hidden;">
+      <img src="images/ship_work6.jpg" alt="ROV sample basket" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Sorting polychaete worms under the microscope</div>
+    </div>
+  </div>
+ 
+  <!-- LIVE ON AIR — full width -->
+  <div style="margin-top:4px;">
+    <div class="photo-item" style="height:80vh;min-height:560px;">
+      <img src="images/ship_work12.jpg" alt="Watching live ROV feed" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;">
+      <div class="caption" style="opacity:1;">Examining rocks on deck with a loupe</div>
+    </div>
+  </div>
+ 
+  <!-- SUNSET ROCK — featured -->
+  <div style="margin-top:4px;">
+    <div class="photo-item" style="height:70vh;min-height:500px;">
+      <img src="images/ship_work3.jpg" alt="Examining seafloor rocks at sunset" style="width:100%;height:100%;object-fit:cover;object-position:center 65%;display:block;filter:brightness(0.85);">
+      <div class="caption" style="opacity:1;">Examining freshly recovered seafloor rocks at sunset · Photo: I. Naranjo / Schmidt Ocean Institute</div>
+    </div>
+  </div>
+ 
+  <!-- SCIENCE GRID ROW 2 — 3 column -->
+  <div class="photo-grid-3 reveal" style="margin-top:4px;">
+    <div class="photo-item" style="aspect-ratio:16/9;overflow:hidden;">
+      <img src="images/ship_work5.jpg" alt="ROV sample basket with Monika" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Retreiving biological samples from ROV <em>SuBastian</em></div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:16/9;overflow:hidden;">
+      <img src="images/ship_work4.jpg" alt="On deck sample prep" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">"We are live on air" - watching the discovery of a vent</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:16/9;overflow:hidden;">
+      <img src="images/ship_work10.jpg" alt="Filter work in the lab" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Onboard lab work</div>
+    </div>
+  </div>
+ 
+  <!-- SPECIES / VENT PHOTOS — 9 images in masonry -->
+  <div style="margin-top:4px;">
+    <div class="photo-grid-masonry reveal">
+      <div class="photo-item span-2" style="min-height:380px;">
+        <img src="images/Species1.jpg" alt="Hydrothermal vent scene" onerror="this.style.display='none'">
+        <div class="caption"><em>Magnapinna</em> sp. — Bigfin squid · extremely rare sighting</div>
+      </div>
+      <div class="photo-item tall" style="min-height:380px;">
+        <img src="images/Ship_work9.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Biological planning with Dr. Joan Alfaro-Lucas</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Species3.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Vent crabs and shrimp · Mid-Atlantic Ridge</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Species4.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Chimaera · Cartilaginous deep-sea fish</div>
+      </div>
+      <div class="photo-item span-2" style="min-height:300px;">
+        <img src="images/Species5.jpg" alt="Vent scene" onerror="this.style.display='none'">
+        <div class="caption">Newly discovered vent</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Ship_work11.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Sorting biological samples</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Species7.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Vent gastropods and <em>Rimicaris exoculata</em> shrimp</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Species6.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Deep-sea isopod</div>
+      </div>
+      <div class="photo-item" style="min-height:260px;">
+        <img src="images/Species9.jpg" alt="Deep-sea species" onerror="this.style.display='none'">
+        <div class="caption">Collected specimen, brittle star</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- CREW PHOTO — full width -->
+  <div style="margin-top:4px;" class="reveal">
+    <div class="photo-item" style="min-height:400px;">
+      <img src="images/Falkor4.jpg" alt="SuBastian ROV deploying, R/V Falkor (too)" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;filter:brightness(0.9);">
+      <div class="caption" style="opacity:1;">Deployment of ROV <em>SuBastian</em></div>
+    </div>
+  </div>
+    <div class="species-item">
+      <img src="images/Species2.jpg" alt="Vent rock" onerror="this.style.display='none'">
+      <div class="species-overlay">
+        <div class="species-name">Black smoker &amp; Vent shrimp</div>
+        <div class="species-loc">Active vent structure</div>
+      </div>
+    </div>
+  </div>
+ 
+</div><!-- end #falkor -->
+ 
+ 
+<!-- DEPTH DIVIDER -->
+<div class="depth-divider">
+  <div class="depth-divider-inner">
+    <div class="depth-divider-num">↓</div>
+    <div class="depth-divider-text">
+      Descending further<br>
+      <span style="color:var(--wave);font-size:0.85em;">≈ 800 – 1,200 m</span>
+    </div>
+  </div>
+</div>
+ 
+ 
+<!-- ═══════════════════════════════════════
+     EXPEDITION 2 — CCGS TULLY 2023
+═══════════════════════════════════════ -->
+<div class="expedition" id="tully">
+ 
+  <div class="expedition-header">
+    <div class="container">
+      <div class="reveal">
+        <div class="depth-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+          Expedition 02 · 2023
+        </div>
+        <h2 class="expedition-title">Northern Cascadia<br>Subduction Zone</h2>
+        <div class="expedition-vessel">CCGS Tully · International Research Expedition · Pacific Canada</div>
+        <p class="expedition-intro">
+          An international research expedition on the Canadian Coast Guard Science vessel <em>CCGS Tully</em>, focused on the Northern Cascadia Subduction Zone. My primary role was collecting high-resolution multibeam and echosounder seafloor mapping data — with some invertebrate identification from core samples on the side.
+        </p>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="expedition-body">
+    <div class="container">
+      <div class="expedition-2col">
+        <div class="expedition-text reveal">
+          <div class="section-label">The Expedition</div>
+          <p>The Cascadia Subduction Zone — where the Juan de Fuca Plate slides beneath North America — shapes everything from the region's earthquake risk to its deep-sea habitats. This expedition collected high-resolution seafloor mapping data and benthic core samples, giving us a clearer picture of what lives on and in the sediment of this dynamic system.</p>
+          <p>My primary role was collecting multibeam and echosounder data — high-resolution seafloor mapping that captures the topography and physical structure of the subduction zone. I also helped with benthic invertebrate identification from core samples. This kind of foundational data — from places that are rarely visited — is what makes future monitoring and modelling possible.</p>
+        </div>
+        <div class="reveal">
+          <div class="expedition-facts">
+            <div class="fact-row">
+              <div class="fact-label">Vessel</div>
+              <div class="fact-value">CCGS Tully, Canadian Coast Guard</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Year</div>
+              <div class="fact-value">2023</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Region</div>
+              <div class="fact-value">Northern Cascadia Subduction Zone, Pacific Canada</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">My role</div>
+              <div class="fact-value">Multibeam/echosounder data collection (primary) · invertebrate ID from cores</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</div><!-- end #tully -->
+ 
+ 
+<!-- DEPTH DIVIDER -->
+<div class="depth-divider" style="background: linear-gradient(to bottom, #030810, #020609);">
+  <div class="depth-divider-inner" style="background:#020609;">
+    <div class="depth-divider-num" style="color:var(--mist);">↓</div>
+    <div class="depth-divider-text">
+      Descending to the deepest dive<br>
+      <span style="color:var(--mist);font-size:0.85em;">≈ 2,000+ m</span>
+    </div>
+  </div>
+</div>
+ 
+ 
+<!-- ═══════════════════════════════════════
+     EXPEDITION 3 — R/V ATLANTIS · DSV ALVIN 2025
+═══════════════════════════════════════ -->
+<div class="expedition" id="atlantis">
+ 
+  <!-- Feature block: solo portrait + text -->
+  <div class="alvin-feature reveal">
+    <div class="alvin-feature-image">
+      <img src="images/atlantis/Alvin_solo.jpg" alt="Megan Davies seated in front of DSV Alvin" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+    </div>
+    <div class="alvin-feature-text">
+      <div class="section-label">Expedition 03 · 2025</div>
+      <h2>Into the Abyss:<br>DSV Alvin</h2>
+      <div class="vessel">R/V Atlantis (AT50-42) · Woods Hole Oceanographic Institution</div>
+      <p>DSV Alvin is one of the most iconic submersibles in the history of ocean science — the vehicle that found the <em>Titanic</em>, discovered hydrothermal vents for the first time, and carried hundreds of scientists to the deep seafloor over five decades. In 2025, I dove in Alvin to establish a long-term monitoring transect for deep-sea corals and sponges.</p>
+      <p>The transect will serve as a baseline for tracking how these communities change as ocean temperatures shift and oxygen levels decline — exactly the kind of long-term data that adaptive management of deep-sea MPAs depends on.</p>
+    </div>
+  </div>
+ 
+  <!-- SHIP DECK STRIP — 2 column: crew group + dive team pre-launch -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Atlantis_crew.jpg" alt="Science crew on R/V Atlantis deck in front of Alvin" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Science crew on R/V Atlantis · AT50-42</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_predive_team.jpg" alt="Dive team with comms headsets before launch" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Pre dive photo</div>
+    </div>
+  </div>
+ 
+ 
+ 
+  <!-- ALVIN ON WATER — full width, whole image always visible -->
+  <div style="margin-top:4px;position:relative;">
+    <img src="images/atlantis/Alvin_water.jpg" alt="DSV Alvin surfacing with diver on top" style="width:100%;height:auto;display:block;filter:brightness(0.9);">
+    <div class="caption" style="opacity:1;">DSV Alvin at the surface · diver assists recovery</div>
+  </div>
+ 
+  <!-- TEXT + FACTS -->
+  <div class="expedition-body">
+    <div class="container">
+      <div class="expedition-2col">
+        <div class="expedition-text reveal">
+          <div class="section-label">What it's like</div>
+          <p>Descending in Alvin takes over an hour. The light goes slowly — reds first, then everything else, until there's nothing left but the deepest blue and then dark. And then the bioluminescence starts. As we moved downward, flashes of light streaked past the windows — it looked like fireworks going upward, though really it was us moving through them. Creatures you can't even name, lighting up as the sub passed. It was magic. By the time you reach the bottom, you're in a world lit only by those flickers and the sub's floodlights. The scale of it is hard to describe.</p>
+          <p>The work I was doing — laying out a permanent transect that other researchers will return to in years and decades — carries a particular weight when you're actually sitting on the seafloor doing it. You're making a mark that's meant to outlast the expedition.</p>
+          <div class="expedition-highlight">
+            <p>"Surreal is the only word for it. After years of studying the deep sea, suddenly it was right outside my window."</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="expedition-facts">
+            <div class="fact-row">
+              <div class="fact-label">Vessel</div>
+              <div class="fact-value">R/V Atlantis, WHOI · cruise AT50-42</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Submersible</div>
+              <div class="fact-value">DSV Alvin — HOV</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Year</div>
+              <div class="fact-value">2025</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Depth</div>
+              <div class="fact-value">&gt; 2,000 metres</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Purpose</div>
+              <div class="fact-value">Establish long-term deep-sea coral &amp; sponge monitoring transect</div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-label">Expedition</div>
+              <div class="fact-value">Nitrogen Cycling Under Pressure</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- INSIDE ALVIN — closing hatch + red-lit controls -->
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:4px;margin-top:4px;">
+    <div class="photo-item" style="aspect-ratio:2/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_hatch.jpg" alt="View through the Alvin hatch" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <div class="caption">Closing the hatch · see you on the other side</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_controls.jpg" alt="Alvin pilot at instruments, red interior lighting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <div class="caption">Pilot at the controls · Alvin interior lit red for dive</div>
+    </div>
+  </div>
+ 
+  <!-- INSIDE ALVIN — 2-column red interior photos -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_interior_porthole.jpg" alt="Pilot looking out Alvin porthole" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <div class="caption">Looking out the porthole at &gt; 2,000 m</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_interior_diveplan.jpg" alt="Reviewing the dive plan checklist inside Alvin" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <div class="caption">Working in Alvin</div>
+    </div>
+  </div>
+ 
+  <!-- ARRIVING AT BOTTOM VIDEO — full width -->
+  <div style="padding:4rem 0;background:var(--midnight);border-top:1px solid rgba(58,156,191,0.08);margin-top:4px;">
+    <div class="container">
+      <div class="section-label reveal">First light on the seafloor</div>
+      <h3 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--fog);margin-bottom:1.5rem;">Arriving at the bottom</h3>
+      <video controls playsinline muted style="width:100%;display:block;border:1px solid rgba(58,156,191,0.12);">
+        <source src="images/atlantis/P9110024.MOV" type="video/quicktime">
+        <source src="images/atlantis/P9110024.MOV" type="video/mp4">
+      </video>
+    </div>
+  </div>
+ 
+  <!-- TRANSECT VIDEO — full width -->
+  <div style="padding:4rem 0;background:var(--abyss);border-top:1px solid rgba(58,156,191,0.08);">
+    <div class="container">
+      <div class="section-label reveal">The science</div>
+      <h3 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--fog);margin-bottom:1.5rem;">The long-term transect</h3>
+      <p class="reveal" style="font-size:1rem;font-weight:300;color:var(--mid);max-width:620px;line-height:1.85;margin-bottom:1.5rem;">A permanent monitoring transect established on the seafloor — a baseline for tracking how deep-sea coral and sponge communities change as ocean conditions shift over years and decades.</p>
+      <video controls playsinline muted style="width:100%;display:block;border:1px solid rgba(58,156,191,0.12);">
+        <source src="images/atlantis/2_Deep Sea Corals.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+ 
+  <!-- POST-DIVE HAZING — 2 column -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:0;">
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_postdive_squirt.jpg" alt="Post-dive hazing tradition with squirt bottle" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" onerror="this.style.display='none'">
+      <div class="caption">Post-dive tradition · new divers get hazed</div>
+    </div>
+    <div class="photo-item" style="aspect-ratio:4/3;overflow:hidden;">
+      <img src="images/atlantis/Alvin_postdive_laugh.jpg" alt="Laughing after post-dive hazing on deck" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" onerror="this.style.display='none'">
+      <div class="caption">The aftermath · worth every drop</div>
+    </div>
+  </div>
+ 
+</div><!-- end #atlantis -->
+ 
+ 
+<!-- DEEP GALLERY — all species -->
+<div id="deep-gallery">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">From the deep</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--fog);margin-bottom:0.6rem;">Creatures of the deep</h2>
+      <p style="font-size:1rem;font-weight:300;color:var(--mid);max-width:520px;line-height:1.85;margin-bottom:0;">Species encountered across the three expeditions — from the Mid-Atlantic Ridge to the Northeast Pacific.</p>
+    </div>
+  </div>
+  <div class="species-grid" style="margin-top:3rem;">
+    <!-- 2×2: Bigfin squid -->
+    <div class="species-item" style="grid-column:span 2;grid-row:span 2;aspect-ratio:auto;">
+      <img src="images/Deepsea1.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name"><em>Magnapinna</em> sp. — Bigfin squid</div>
+        <div class="species-loc">Mid-Atlantic Ridge · extremely rare sighting</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea2.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name">Chain siphonophore</div>
+        <div class="species-loc">Deep midwater · colonial organism</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea3.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name">Deep-sea larvacean &amp; mucous house</div>
+        <div class="species-loc">Deep midwater · filters organic particles from the water column</div>
+      </div>
+    </div>
+    <!-- 2×1 wide: vent shrimp — dense texture suits landscape -->
+    <div class="species-item" style="grid-column:span 2;aspect-ratio:auto;">
+      <img src="images/Deepsea4.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name"><em>Rimicaris exoculata</em> — vent shrimp</div>
+        <div class="species-loc">Vent community · Mid-Atlantic Ridge</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea5.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name"><em>Bathyopsurus nybelini</em> — deep-sea isopod</div>
+        <div class="species-loc">Deep midwater · Atlantic</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea6.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name">Polychaete worm</div>
+        <div class="species-loc">Soft sediment seafloor · Mid-Atlantic Ridge</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea7.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name"><em>Chaunacops</em> sp. — toadfish</div>
+        <div class="species-loc">Basalt substrate · Mid-Atlantic Ridge</div>
+      </div>
+    </div>
+    <!-- 1×1 -->
+    <div class="species-item">
+      <img src="images/Deepsea8.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name">Eelpout — family Zoarcidae</div>
+        <div class="species-loc">Basalt substrate · Mid-Atlantic Ridge</div>
+      </div>
+    </div>
+    <!-- 2×1 wide: anemone — broad spreading tentacles suit landscape -->
+    <div class="species-item" style="grid-column:span 2;aspect-ratio:auto;">
+      <img src="images/Deepsea9.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name">White carnivorous anemone</div>
+        <div class="species-loc">Basalt substrate · Mid-Atlantic Ridge</div>
+      </div>
+    </div>
+    <!-- 2×1 wide: viperfish — dark midwater suits wide format -->
+    <div class="species-item" style="grid-column:span 2;aspect-ratio:auto;">
+      <img src="images/Deepsea10.jpg" alt="Deep-sea species" onerror="this.parentElement.style.background='#0b1824'">
+      <div class="species-overlay">
+        <div class="species-name"><em>Chauliodus macouni</em> — Pacific viperfish</div>
+        <div class="species-loc">Deep midwater · Northeast Pacific</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+ 
+<!-- SURFACE CTA -->
+<div class="surface-cta">
+  <div class="section-label" style="justify-content:center;margin-bottom:1.2rem;">Back to the surface</div>
+  <h2>There's more to explore.</h2>
+  <p>The expeditions feed the research. See the publications, frameworks, and monitoring work that grows from these dives.</p>
+  <a href="research.html" class="btn-primary">Explore the Research</a>
+  <a href="index.html" class="btn-ghost">Back to Home</a>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Megan A. Davies &nbsp;·&nbsp; University of Victoria &nbsp;·&nbsp; Victoria, BC</p>
+</footer>
+ 
+<script>
+  const navbar = document.getElementById('navbar');
+  const depthTrack = document.getElementById('depthTrack');
+  const depthMarker = document.getElementById('depthMarker');
+ 
+  // Expedition depth map
+  const sections = [
+    { id: 'falkor',   depth: '~2500m',  label: 'Mid-Atlantic' },
+    { id: 'tully',    depth: '~600m',   label: 'Cascadia' },
+    { id: 'atlantis', depth: '>2000m',  label: 'Alvin Dive' },
+  ];
+ 
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    navbar.classList.toggle('scrolled', sy > 20);
+ 
+    // Show depth track after scrolling past intro
+    const introH = document.getElementById('diveIntro').offsetHeight;
+    depthTrack.classList.toggle('visible', sy > introH * 0.6);
+ 
+    // Update depth marker based on current section
+    for (const s of sections) {
+      const el = document.getElementById(s.id);
+      if (!el) continue;
+      const top = el.offsetTop;
+      const bot = top + el.offsetHeight;
+      if (sy + window.innerHeight / 2 >= top && sy + window.innerHeight / 2 < bot) {
+        depthMarker.innerHTML = `${s.depth}<span>${s.label}</span>`;
+        break;
+      }
+    }
+  });
+ 
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+ 
+</body>
+</html>

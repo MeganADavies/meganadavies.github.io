@@ -1,209 +1,1015 @@
-<!DOCTYPE HTML>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Megan A Davies</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
-
-			<!-- Header -->
-				<div id="header">
-
-					<!-- Inner -->
-						<div class="inner">
-							<header>
-								<h1><a href="index.html" id="logo">Megan A Davies</a></h1>
-								<hr />
-								<p style="font-size: 1.3em; color: white; font-weight: bold;">Research Manager, Bates Lab   |    MSc, BSc UVic</p>
-
-							</header>
-							
-						</div>
-
-<!-- Nav -->
-<nav id="nav">
-	<ul>
-		<li><a href="index.html">About Me</a></li>
-		
-		<li>
-			<a href="#">Research</a>
-			<ul>
-				<li><a href="#">Current (Under construction)</a></li>
-				<li>
-					<a href="#">Undergrad &hellip;</a>
-					<ul>
-						<li><a href="">Bamfield (Under construction)</a></li>
-						<li><a href="honours.html">Honours</a></li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-		<li><a href="outreach.html">Outreach</a></li>
-		<li><a href="industry.html">Industry</a></li>
-		
-	</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Megan A. Davies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abyss:    #060d17;
+      --midnight: #0b1824;
+      --navy:     #112236;
+      --deep:     #1a3a5c;
+      --ocean:    #1e6a8e;
+      --wave:     #3a9cbf;
+      --mist:     #7ac2d9;
+      --ice:      #c8e8f2;
+      --fog:      #e4f2f7;
+      --offwhite: #fafaf8;
+      --sand:     #f0ebe2;
+      --mid:      #8a9aaa;
+      --light:    #5a6a7a;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--abyss);
+      color: var(--fog);
+      overflow-x: hidden;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      background: rgba(6,13,23,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(58,156,191,0.12);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 32px rgba(0,0,0,0.4); }
+ 
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .nav-logo span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--fog);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo span:last-child {
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+ 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--wave);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--fog); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--mist); }
+    .nav-links a.active::after { width: 100%; background: var(--mist); }
+ 
+    .nav-cta {
+      background: transparent !important;
+      color: var(--mist) !important;
+      border: 1px solid rgba(122,194,217,0.4) !important;
+      padding: 0.45rem 1.2rem !important;
+      border-radius: 2px !important;
+      transition: all 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: rgba(122,194,217,0.1) !important;
+      border-color: var(--mist) !important;
+      color: var(--fog) !important;
+    }
+    .nav-cta::after { display: none !important; }
+ 
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+ 
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(6,13,23,0.3) 0%,
+        rgba(6,13,23,0.1) 40%,
+        rgba(6,13,23,0.7) 75%,
+        rgba(6,13,23,0.95) 100%
+      );
+      z-index: 1;
+    }
+ 
+    /* Placeholder bg — replace with a real expedition photo */
+    .hero-image-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(30,106,142,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 80% at 20% 70%, rgba(58,156,191,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, #060d17 0%, #0f2237 40%, #071525 100%);
+      /* TO ADD YOUR PHOTO: replace the above with:
+         background-image: url('images/falkor/[your-hero-image].jpg');
+         background-size: cover; background-position: center; */
+    }
+ 
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 4rem 4rem 6rem 6rem;
+    }
+ 
+    .hero-photo-col {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1rem 4rem 0;
+      gap: 1.5rem;
+    }
+    .hero-portrait {
+      width: min(680px, 96%);
+      height: auto;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      filter: brightness(0.95) contrast(1.02);
+    }
+    .hero-photo-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-photo-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mist);
+      border: 1px solid rgba(122,194,217,0.22);
+      padding: 0.28rem 0.75rem;
+      border-radius: 2px;
+    }
+ 
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--mist);
+    }
+ 
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.06;
+      color: var(--fog);
+      margin-bottom: 2rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--mist);
+    }
+ 
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ice);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      opacity: 0.85;
+    }
+ 
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+ 
+    .btn-primary {
+      background: var(--wave);
+      color: var(--abyss);
+      padding: 0.85rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--mist); transform: translateY(-1px); }
+ 
+    .btn-ghost {
+      border: 1px solid rgba(122,194,217,0.4);
+      color: var(--ice);
+      padding: 0.85rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover {
+      background: rgba(122,194,217,0.1);
+      border-color: var(--mist);
+      color: var(--fog);
+    }
+ 
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--light);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--light), transparent);
+      animation: scrollline 2s ease-in-out infinite;
+    }
+    @keyframes scrollline {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+ 
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 0; }
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+ 
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 26px; height: 1px;
+      background: var(--wave);
+    }
+ 
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--fog);
+      margin-bottom: 1.2rem;
+    }
+ 
+    .section-intro {
+      font-size: 1.08rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--mid);
+      max-width: 600px;
+    }
+ 
+    /* ── ABOUT STRIP ── */
+    #about {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+ 
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+ 
+    .about-photo {
+      position: relative;
+    }
+    .about-photo img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+    .about-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(11,24,36,0.5) 100%);
+      pointer-events: none;
+    }
+ 
+    .about-text p {
+      font-size: 1.08rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 1.3rem;
+    }
+    .about-text a {
+      color: var(--wave);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(58,156,191,0.3);
+      transition: border-color 0.2s;
+    }
+    .about-text a:hover { border-color: var(--wave); }
+ 
+    .about-highlight {
+      margin: 2.5rem 0;
+      padding: 2rem 2.2rem;
+      background: rgba(58,156,191,0.05);
+      border-left: 2px solid var(--wave);
+    }
+    .about-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem !important;
+      font-weight: 400 !important;
+      font-style: italic;
+      color: var(--ice) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0.6rem !important;
+    }
+    .about-highlight cite {
+      font-size: 0.75rem;
+      font-style: normal;
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--wave);
+    }
+ 
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 2.5rem;
+      background: rgba(58,156,191,0.1);
+      border: 1px solid rgba(58,156,191,0.1);
+    }
+    .stat {
+      background: var(--midnight);
+      padding: 1.4rem 1rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      font-weight: 400;
+      color: var(--mist);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+ 
+    .education-block {}
+    .edu-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(58,156,191,0.1);
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-degree {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--fog);
+      margin-bottom: 0.3rem;
+    }
+    .edu-detail {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--light);
+      line-height: 1.6;
+    }
+    .edu-detail em { color: var(--mid); font-style: italic; }
+ 
+    /* ── PAGE CARDS (main nav sections) ── */
+    #sections {
+      background: var(--abyss);
+    }
+ 
+    .page-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5px;
+      margin-top: 4rem;
+      background: rgba(58,156,191,0.06);
+    }
+ 
+    .page-card {
+      position: relative;
+      background: var(--midnight);
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      min-height: 340px;
+      transition: background 0.3s;
+    }
+    .page-card:hover { background: var(--navy); }
+ 
+    .page-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.25;
+      transition: opacity 0.5s, transform 0.6s;
+    }
+    .page-card:hover .page-card-bg {
+      opacity: 0.4;
+      transform: scale(1.03);
+    }
+ 
+    .page-card-content {
+      position: relative;
+      z-index: 2;
+      padding: 2.8rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(to top, rgba(6,13,23,0.85) 0%, transparent 60%);
+    }
+ 
+    .page-card-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.8rem;
+    }
+ 
+    .page-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--fog);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+ 
+    .page-card p {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--mid);
+      max-width: 380px;
+    }
+ 
+    .page-card-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--wave);
+      transition: gap 0.2s;
+    }
+    .page-card:hover .page-card-arrow { gap: 0.8rem; }
+    .page-card-arrow svg { width: 14px; height: 14px; }
+ 
+    /* Expedition card spans full width */
+    .page-card.featured {
+      grid-column: span 2;
+      min-height: 420px;
+    }
+ 
+    /* ── LATEST SECTION ── */
+    #latest {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+    }
+ 
+    .latest-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+ 
+    .latest-item {
+      border: 1px solid rgba(58,156,191,0.12);
+      padding: 1.8rem;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .latest-item:hover {
+      border-color: rgba(58,156,191,0.3);
+      background: rgba(58,156,191,0.04);
+    }
+ 
+    .latest-item-type {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wave);
+      margin-bottom: 0.8rem;
+    }
+ 
+    .latest-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--fog);
+      line-height: 1.4;
+      margin-bottom: 0.7rem;
+    }
+ 
+    .latest-item p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid);
+    }
+ 
+    .latest-item a {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--wave);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(58,156,191,0.3);
+      transition: border-color 0.2s;
+    }
+    .latest-item a:hover { border-color: var(--wave); }
+ 
+    /* ── CONTACT STRIP ── */
+    #contact {
+      background: var(--abyss);
+      border-top: 1px solid rgba(58,156,191,0.08);
+      padding: 5rem 0;
+    }
+ 
+    .contact-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+ 
+    .contact-text .section-title { margin-bottom: 0.6rem; }
+    .contact-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+ 
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 300px;
+    }
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--mid);
+    }
+    .contact-link-item a {
+      color: var(--ice);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      transition: border-color 0.2s;
+    }
+    .contact-link-item a:hover { border-color: var(--mist); color: var(--fog); }
+    .contact-link-item svg {
+      width: 16px; height: 16px;
+      color: var(--wave);
+      flex-shrink: 0;
+    }
+ 
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mist);
+      text-decoration: none;
+      border: 1px solid rgba(122,194,217,0.2);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .social-btn svg { width: 13px; height: 13px; }
+    .social-btn:hover {
+      background: rgba(122,194,217,0.08);
+      border-color: rgba(122,194,217,0.45);
+      color: var(--fog);
+    }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--midnight);
+      border-top: 1px solid rgba(58,156,191,0.08);
+      padding: 1.8rem 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--light);
+      opacity: 0.6;
+    }
+ 
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-content { padding: 3rem 1.5rem 2rem; }
+      .hero-photo-col { padding: 1rem 1.5rem 3rem; }
+      .hero-portrait { height: 320px; }
+      .hero-scroll { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .page-cards { grid-template-columns: 1fr; }
+      .page-card.featured { grid-column: span 1; }
+      .latest-grid { grid-template-columns: 1fr; }
+      .contact-inner { flex-direction: column; gap: 2.5rem; }
+      .contact-links { min-width: unset; width: 100%; }
+      section { padding: 5rem 0; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span>Megan A. Davies</span>
+    <span>Marine Biologist &amp; Science Communicator</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="expeditions.html">Expeditions</a></li>
+    <li><a href="teaching.html">Teaching &amp; Outreach</a></li>
+    <li><a href="illustration.html">Illustration</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
 </nav>
-
-				</div>
-
-			<!-- Banner -->
-				<section id="banner">
-					<header>
-						<h2><strong>Biologist</strong><strong>  |  </strong><strong>Storyteller</strong><strong>  |  </strong><strong>Illustrator</strong></h2>
-						<p>
-							“Every time I slip into the ocean, it’s like going home.” – Sylvia Earle
-						</p>
-					</header>
-				</section>
-
-			
-			<!-- Main -->
-				<div class="wrapper style2">
-
-					<article id="main" class="container special">
-						<a href="#" class="image featured"><img src="images/M.Davies3.JPG" alt="" /></a>
-						<header>
-							<h2><a href="#">A little about me</a></h2>
-							<p>
-								I am the Research Manager for the <a href="https://www.oceanconservationlab.com/">Bates Lab</a> at the University of Victoria, 
-								leading the final year of the <a href="https://www.traitorsproject.ca/">TraitORS Project</a>. 
-								I recently completed my MSc in Biology at UVic. My thesis, <em>Monitoring Deep-Sea MPAs: 
-									Functional and Trait-Based Approaches for Adaptive Management in Changing Oceans</em>, explored how 
-									species traits and functional groups can support adaptive monitoring of vulnerable deep-sea ecosystems in the face of climate change.
-						</header>
-						<p>
-							I started my post-secondary journey at Fleming College, earning a diploma in Ecosystem Management. 
-							There, I studied ecological restoration, Indigenous and environmental law, and GIS-based habitat monitoring. 
-							My early research focused on benthic macroinvertebrates and invasive plants.
-						</p>
-						After moving to Canada’s west coast, I completed a BSc in Biology with a concentration in Marine Biology at UVic. 
-						During this time, I discovered my passion for the deep sea while conducting research on deep-sea sole distribution 
-						on Northeast Pacific seamounts. I am an avid educator who loves sharing the wonder of the ocean with diverse audiences.
-
-						</p>
-						<footer>
-						</p>
-						<footer>
-							<a href="#" class="button">Back to top</a>
-						</footer>
-					</article>
-						</footer>
-					</article>
-
-				</div>
-				
-
-			<!-- Features -->
-				<div class="wrapper style1">
-
-					<section id="features" class="container special">
-						<header>
-							<h2>Research Interests and Overview</h2>
-							<p>My research interests include deep-sea conservation ecology, seamount systems, species traits, and fish biology & behaviour. </p>
-						</header>
-						<div class="row">
-							<article class="col-4 col-12-mobile special">
-								<a href="#" class="image featured"><img src="images/rov.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Seamount Species</a></h3>
-								</header>
-								<p>
-									My first MSc chapter examined cold-water coral and sponge communities on seamounts within the 
-									SG̲áan K̲ínghlas-Bowie and Tang.ɢ̱wan – ḥačxwiqak – Tsig̱is MPAs. Using benthic imagery, I modeled functional 
-									group occupancy across depth and seamount flanks. Mid-depth zones (800–1200 m) showed the highest occupancy, 
-									though patterns varied within and between seamounts. Findings highlight the value of functional groups for scalable, 
-									adaptive deep-sea monitoring.
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a href="honours.html" class="image featured"><img src="images/large.jpg" alt="" /></a>
-								<header>
-									<h3><a href="honours.html">Deepsea Sole</a></h3>
-								</header>
-								<p>
-									My honours research at the University of Victoria focused on the distibution and substrate preferences of deepsea sole, a local flatfish species, on seamounts off the coast of British Columbia. 
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a href="#" class="image featured"><img src="images/ratfish2.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Spotted Ratfish</a></h3>
-								</header>
-								<p>
-									During undergrad I conducted a study at Bamfield Marine Sciences Centre on the locomotor kinematics of the spotted ratfish focusing on their pectoral fins. 
-								</p>
-							</article>
-						</div>
-					</section>
-
-				</div>
-
-				
-
-
-			<!-- Footer -->
-				<div id="footer">
-					<div class="container">
-						
-
-							
-								</section>
-
-						</div>
-						<hr />
-						<div class="row">
-							<div class="col-12">
-
-								<!-- Contact -->
-									<section class="contact">
-										<header>
-											<h3>Want to get in touch?</h3>
-										</header>
-										<p> Have any questions about my research, science communication, or any other general inquiry?
-											Have a suggestion for collaboration? I would love to hear from you! You can reach me at 
-											megan.halliwell.davies “at” gmail.com or mdavies7 “at” uvic.ca. </p>
-										<ul class="icons">
-											<li><a href="https://twitter.com/M_Davies" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-											<li><a href="https://www.instagram.com/muggzy_d/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-											<li><a href="https://www.linkedin.com/in/megan-davies-613aa0249/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
-										</ul>
-									</section>
-									
-
-
-								<!-- Copyright -->
-									<div class="copyright">
-										<ul class="menu">
-											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-										</ul>
-									</div>
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-		</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+ 
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-image-bg"></div>
+  <div class="hero-bg"></div>
+  <!-- TO ADD HERO PHOTO: give .hero-image-bg a background-image pointing to your best expedition/deep-sea image -->
+ 
+  <div class="hero-content">
+    <div class="hero-eyebrow">Research Manager · University of Victoria · Bates Lab</div>
+    <h1 class="hero-title">
+      Biologist.<br>
+      <em>Storyteller.</em><br>
+      Illustrator.
+    </h1>
+    <p class="hero-sub">
+      Deep-sea ecologist studying biodiversity in some of the most remote and least understood places on the planet.
+    </p>
+    <div class="hero-actions">
+      <a href="expeditions.html" class="btn-primary">See the Expeditions</a>
+      <a href="research.html" class="btn-ghost">Research &amp; Publications</a>
+    </div>
+  </div>
+ 
+  <div class="hero-photo-col">
+    <img src="images/hero_jelly.jpg" alt="Deep-sea jellyfish — Mid-Atlantic Ridge" class="hero-portrait" />
+    <div class="hero-photo-tags">
+      <span class="hero-photo-tag">Mid-Atlantic Ridge</span>
+      <span class="hero-photo-tag">R/V Falkor (too)</span>
+      <span class="hero-photo-tag">2023</span>
+    </div>
+  </div>
+ 
+  <div class="hero-scroll">Scroll</div>
+</div>
+ 
+<!-- ABOUT STRIP -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <img src="images/megan_hero.jpg" alt="Megan Davies in the intertidal" style="margin-top:-3rem;" />
+        <img src="images/megan_jellyfish.jpg" alt="Megan Davies at a jellyfish tank"
+          style="margin-top:2.5rem;width:100%;display:block;object-fit:cover;aspect-ratio:4/3;object-position:center 30%;filter:brightness(0.92) contrast(1.05);" />
+      </div>
+      <div class="about-text reveal">
+        <div class="section-label">About</div>
+        <h2 class="section-title">A little about me</h2>
+        <p>I am the Research Manager for the <a href="https://www.oceanconservationlab.ca/">Bates Lab</a> at the University of Victoria. I coordinate multiple grant-funded research projects — including the recently completed <a href="https://www.traitorsproject.ca/">traitORS Project</a> — many of which have direct monitoring and management implications for offshore marine regions.</p>
+        <p>I completed my MSc in 2025. My thesis, <em>Monitoring Deep-Sea MPAs: Functional and Trait-Based Approaches for Adaptive Management in Changing Oceans</em>, explored how species traits and functional groups can support adaptive monitoring of vulnerable deep-sea ecosystems. I also teach marine invertebrate biology at UVic.</p>
+        <div class="about-highlight">
+          <p>"Every time I slip into the ocean, it's like going home."</p>
+          <cite>— Sylvia Earle</cite>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Weeks at sea</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">+2km</div>
+            <div class="stat-label">Deepest dive</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">New vent sites found</div>
+          </div>
+        </div>
+ 
+        <div class="education-block">
+          <div class="section-label" style="margin-top:2.5rem;margin-bottom:1.2rem;">Education</div>
+          <div class="edu-item">
+            <div class="edu-degree">MSc Biology</div>
+            <div class="edu-detail">University of Victoria · 2025 · <em>Monitoring Deep-Sea MPAs: Functional and Trait-Based Approaches for Adaptive Management in Changing Oceans</em></div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">BSc Biology (Hons), Marine Biology Concentration</div>
+            <div class="edu-detail">University of Victoria · 2021</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">Ecosystem Management Technician Diploma</div>
+            <div class="edu-detail">Fleming College · 2012</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PAGE SECTIONS -->
+<section id="sections">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Explore</div>
+      <h2 class="section-title">What you'll find here</h2>
+    </div>
+ 
+    <div class="page-cards">
+ 
+      <!-- EXPEDITIONS — featured full-width -->
+      <a href="expeditions.html" class="page-card featured reveal">
+        <div class="page-card-bg" style="background-image: url('images/Black%20Smoker.jpg');"></div>
+        <div class="page-card-content">
+          <div class="page-card-tag">At sea</div>
+          <h3>Expeditions</h3>
+          <p>Three research cruises. A sub dive to over 2,000 metres. Three newly discovered hydrothermal vent sites. Photos and video from places very few people have seen.</p>
+          <div class="page-card-arrow">
+            Explore the expeditions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+ 
+      <!-- RESEARCH -->
+      <a href="research.html" class="page-card reveal">
+        <div class="page-card-bg" style="background-image: url('images/rov.jpg');"></div>
+        <div class="page-card-content">
+          <div class="page-card-tag">Science</div>
+          <h3>Research</h3>
+          <p>Deep-sea invertebrate and fish ecology, trait-based frameworks, vulnerability assessment, seamount monitoring, and marine protected areas.</p>
+          <div class="page-card-arrow">
+            View research &amp; publications
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+ 
+      <!-- TEACHING -->
+      <a href="teaching.html" class="page-card reveal">
+        <div class="page-card-bg" style="background-image: url('images/lecturing.jpg');"></div>
+        <div class="page-card-content">
+          <div class="page-card-tag">Education &amp; Outreach</div>
+          <h3>Teaching &amp; Outreach</h3>
+          <p>Sessional lecturer in marine invertebrate biology at UVic. Science communicator. DOERs member. NatureFolx podcast. Skype a Scientist.</p>
+          <div class="page-card-arrow">
+            Learn more
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+ 
+      <!-- ILLUSTRATION -->
+      <a href="illustration.html" class="page-card reveal">
+        <div class="page-card-bg" style="background-image: url('images/deep_sea_creatures.jpg');"></div>
+        <div class="page-card-content">
+          <div class="page-card-tag">Art &amp; Science</div>
+          <h3>Illustration</h3>
+          <p>Natural history and scientific illustration — from deep-sea species to science communication diagrams. Commissioned work currently in progress.</p>
+          <div class="page-card-arrow">
+            View illustration
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- LATEST -->
+<section id="latest">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Latest</div>
+      <h2 class="section-title">Recent work</h2>
+    </div>
+    <div class="latest-grid">
+ 
+      <div class="latest-item reveal">
+        <div class="latest-item-type">Publication · 2026</div>
+        <h3>State of deep-sea research and conservation in the Northeast Pacific and Hawaiian Islands</h3>
+        <p>Girard, F., J.M. Alfaro-Lucas, A.R. Baco, <strong>M.A. Davies</strong>, et al. <em>Progress in Oceanography.</em> 2026.</p>
+        <a href="https://www.sciencedirect.com/science/article/pii/S0079661126000522" target="_blank" rel="noopener">Read paper →</a>
+      </div>
+ 
+      <div class="latest-item reveal">
+        <div class="latest-item-type">Expedition · 2025</div>
+        <h3>DSV Alvin dive — long-term transect established at depth</h3>
+        <p>R/V Atlantis (AT50-42). Established a long-term deep-sea coral and sponge monitoring transect using the iconic DSV Alvin submersible.</p>
+        <a href="expeditions.html">See the expedition →</a>
+      </div>
+ 
+      <div class="latest-item reveal">
+        <div class="latest-item-type">Publication · 2024</div>
+        <h3>Overcoming imposter syndrome: Contribute to working groups and build strong networks</h3>
+        <p>Bates, A.E., <strong>M.A. Davies</strong>, et al. <em>Biological Conservation</em> 293:110566. 2024.</p>
+        <a href="https://www.sciencedirect.com/science/article/pii/S0006320724001289" target="_blank" rel="noopener">Read paper →</a>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Get in touch</h2>
+        <p>Questions about my research, collaboration ideas, science communication, or illustration work — I'd love to hear from you.</p>
+        <div class="social-row">
+          <a href="https://twitter.com/M_Davies" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            Twitter
+          </a>
+          <a href="https://www.instagram.com/muggzy_d/" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/in/megan-davies-613aa0249/" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="contact-links reveal">
+        <div class="contact-link-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:megan.halliwell.davies@gmail.com">megan.halliwell.davies@gmail.com</a>
+        </div>
+        <div class="contact-link-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:mdavies7@uvic.ca">mdavies7@uvic.ca</a>
+        </div>
+        <div class="contact-link-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Department of Biology, University of Victoria, BC
+        </div>
+ 
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Megan A. Davies &nbsp;·&nbsp; University of Victoria &nbsp;·&nbsp; Victoria, BC</p>
+</footer>
+ 
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+ 
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+ 
+</body>
 </html>
